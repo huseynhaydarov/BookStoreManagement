@@ -3,13 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{968BAA9B-46C2-4670-ADD5-8AA89971F237} = {968BAA9B-46C2-4670-ADD5-8AA89971F237}
+		{FD22C112-3EA2-4424-BBE3-683253D66BF5} = {FD22C112-3EA2-4424-BBE3-683253D66BF5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{A4EB1A46-C473-480E-A099-C958C365D6EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{A4EB1A46-C473-480E-A099-C958C365D6EC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1} = {BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1}
+		{FD22C112-3EA2-4424-BBE3-683253D66BF5} = {FD22C112-3EA2-4424-BBE3-683253D66BF5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FD22C112-3EA2-4424-BBE3-683253D66BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{FD22C112-3EA2-4424-BBE3-683253D66BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{968BAA9B-46C2-4670-ADD5-8AA89971F237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{968BAA9B-46C2-4670-ADD5-8AA89971F237}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD22C112-3EA2-4424-BBE3-683253D66BF5} = {FD22C112-3EA2-4424-BBE3-683253D66BF5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API", "Web.API\Web.API.csproj", "{0A2307D6-C3ED-4C08-A121-BDA04DA425FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4EB1A46-C473-480E-A099-C958C365D6EC} = {A4EB1A46-C473-480E-A099-C958C365D6EC}
+		{BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1} = {BE7FBAEC-B1F2-45A2-B43D-9BE94EDB9CD1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +50,10 @@ Global
 		{968BAA9B-46C2-4670-ADD5-8AA89971F237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{968BAA9B-46C2-4670-ADD5-8AA89971F237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{968BAA9B-46C2-4670-ADD5-8AA89971F237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2307D6-C3ED-4C08-A121-BDA04DA425FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2307D6-C3ED-4C08-A121-BDA04DA425FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2307D6-C3ED-4C08-A121-BDA04DA425FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2307D6-C3ED-4C08-A121-BDA04DA425FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
