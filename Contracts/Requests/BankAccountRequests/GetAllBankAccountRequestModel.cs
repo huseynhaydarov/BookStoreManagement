@@ -9,5 +9,5 @@ namespace Contracts.Requests.BankAccountRequests;
 
 public record GetAllBankAccountRequestModel
 {
-   //public IEnumerable<BankAccount> Items { get; init; } = Enumerable.Empty<BankAccount>();
+    //public IEnumerable<BankAccount> Items { get; init; } = Enumerable.Empty<BankAccount>();
 }
