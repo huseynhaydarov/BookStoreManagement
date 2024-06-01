@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Abstract;
+using Infrastructure.Persistence.TablesConfiguration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,4 +20,12 @@ public class EFContext : DbContext
         optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=BSM;Username=postgres;Password=7878_Postgresql");
         base.OnConfiguring(optionsBuilder);
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Ignore<BaseEntity>();
+        modelBuilder.Ignore<Person>();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
+    }
 }
+
