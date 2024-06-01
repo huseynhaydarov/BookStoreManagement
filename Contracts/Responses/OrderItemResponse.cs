@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.Responses;
 
-public record OrderItemResponseModel
+public record OrderItemResponse
 {
     public int Id { get; set; }
     public int Quantity { get; set; }
