@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ public class Book : BaseEntity
     public int PublicationYear { get; set; }    
     public int StockQuantity { get; set; }
     public string ISBN { get; set; }
+    public BookType Type { get; set; }
 
     public Author Author { get; set; }
     public int AuthorId { get; set; }
@@ -24,5 +26,5 @@ public class Book : BaseEntity
     public Category Category { get; set; }
     public int CategoryId { get; set; }
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; }
+    public virtual ICollection<OrderItem> Items { get; set; }
 }
