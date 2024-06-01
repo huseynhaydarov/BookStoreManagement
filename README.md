@@ -1,10 +1,8 @@
-BookStoreManagement
-
 BookStoreManagement - это серверное-приложение, разработанное на .NET 8.
 
 Описание
 
-BookStoreManagement - это простое веб-приложение, которое позволяет пользователям выполнять некоторые дейтсвий. Оно использует ASP.NET Core для бэкенда и поддерживает современные технологии и лучшие практики.
+BookStoreManagement - это веб-приложение, которое позволяет пользователям выполнять некоторые дейтсвии. Оно использует ASP.NET Core для бэкенда и поддерживает современные технологии и лучшие практики.
 
 Требования
 
@@ -13,11 +11,13 @@ BookStoreManagement - это простое веб-приложение, кот�
 .NET 8 SDK
 Postgresql
 Visual Studio 2022 (или другой IDE, поддерживающий .NET 8)
+
 Установка
 
 Для начала работы клонируйте репозиторий и установите зависимости:
 
-bash git clone https://github.com/huseynhaydarov/BookStoreManagement.git cd BookStoreManagement
+bash git clone https://github.com/huseynhaydarov/BookStoreManagement.git 
+cd BookStoreManagement
 
 Настройка
 
@@ -25,7 +25,7 @@ bash git clone https://github.com/huseynhaydarov/BookStoreManagement.git cd Book
 
 Отредактируйте файл appsettings.json, добавив строку подключения к вашей базе данных:
 
-{ "ConnectionStrings": { "DefaultConnection": "Host=localhost;Port=5433;Database= ;Username= ;Password= " } }
+{ "ConnectionStrings": { "DefaultConnection": "Host=localhost;Port=5433; Database= ; Username= ; Password= " } }
 
 Миграции базы данных:
 
