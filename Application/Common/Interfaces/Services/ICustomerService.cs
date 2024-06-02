@@ -16,7 +16,7 @@ public interface ICustomerService
 
     Task<CustomerResponse> CreateAsync(CreateCustomerRequestModel request, CancellationToken token = default);
 
-    Task UpdateAsync(UpdateCustomerRequestModel request, CancellationToken token = default);
+    Task UpdateAsync(int id, UpdateCustomerRequestModel request, CancellationToken token = default);
 
     Task<bool> DeleteAsync(int id, CancellationToken token = default);
 }

@@ -37,7 +37,7 @@ public class BankAccountController(IBankAccountService accountService) : Control
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBankAccountRequestModel request,
     CancellationToken token)
     {
-        await accountService.UpdateAsync(request, token);
+        await accountService.UpdateAsync(id, request, token);
         return Ok();
     }
 

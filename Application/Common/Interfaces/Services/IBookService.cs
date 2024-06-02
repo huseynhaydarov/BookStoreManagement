@@ -17,7 +17,7 @@ public interface IBookService
 
     Task<BookResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default);
 
-    Task UpdateAsync(UpdateBookRequestModel request, CancellationToken token = default);
+    Task UpdateAsync(int id, UpdateBookRequestModel request, CancellationToken token = default);
 
     Task<bool> DeleteAsync(int id, CancellationToken token = default);
 }

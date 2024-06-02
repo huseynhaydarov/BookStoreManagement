@@ -31,7 +31,7 @@ public class OrderController(IOrderService orderService) : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateOrderRequestModel request,
         CancellationToken token)
     {
-        await orderService.UpdateAsync(request, token);
+        await orderService.UpdateAsync(id, request, token);
         return Ok();
     }
 

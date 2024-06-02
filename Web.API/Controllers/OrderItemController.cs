@@ -33,7 +33,7 @@ public class OrderItemController(IOrderItemService orderItemService) : Controlle
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateOrderItemRequestModel request,
         CancellationToken token)
     {
-        await orderItemService.UpdateAsync(request, token);
+        await orderItemService.UpdateAsync(id, request, token);
         return Ok();
     }
 

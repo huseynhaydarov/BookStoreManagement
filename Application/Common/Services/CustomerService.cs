@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.CustomerRequests;
 using Contracts.Responses;
 using Domain.Entities;
@@ -53,17 +54,16 @@ namespace Application.Common.Services
             return mapper.Map<CustomerResponse>(response);
         }
 
-        public async Task UpdateAsync(UpdateCustomerRequestModel request, CancellationToken token = default)
+        public async Task UpdateAsync(int id, UpdateCustomerRequestModel request, CancellationToken token = default)
         {
-            var customer = await customerRepository.GetAsync(request.Id, token);
+            var customer = await customerRepository.GetAsync(id, token);
 
             if (customer is null)
             {
-                throw new NotFoundException(nameof(Customer), request.Id);
+                throw new Exception($"Not found entity with the following id: {id}");
             }
-
-            customer = mapper.Map<Customer>(request);
-             await customerRepository.UpdateAsync(customer, token);
+            mapper.Map(request, customer);
+            await customerRepository.UpdateAsync(customer, token);
         }
     }
 }

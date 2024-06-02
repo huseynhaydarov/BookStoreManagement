@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.OrderItemRequestsModel;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using Domain.Entities;
@@ -50,16 +51,15 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
         return mapper.Map<PublisherResponse>(response); 
     }
 
-    public async Task UpdateAsync(UpdatePublisherRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(int id, UpdatePublisherRequestModel request, CancellationToken token = default)
     {
-        var publisher = await publisherRepository.GetAsync(request.Id, token);
+        var publisher = await publisherRepository.GetAsync(id, token);
 
-        if(publisher is null)
-         {
-                throw new NotFoundException(nameof(Publisher), request.Id);
-         }
-        publisher = mapper.Map<Publisher>(request);
-        await publisherRepository.UpdateAsync(publisher,token);
-            
+        if (publisher is null)
+        {
+            throw new Exception($"Not found entity with the following id: {id}");
+        }
+        mapper.Map(request, publisher);
+        await publisherRepository.UpdateAsync(publisher, token);
     }
 }

@@ -2,7 +2,9 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.OrderItemRequestsModel;
+using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using System;
@@ -53,16 +55,15 @@ namespace Application.Common.Services
             return mapper.Map<OrderItemResponse>(response);
         }
 
-        public async Task UpdateAsync(UpdateOrderItemRequestModel request, CancellationToken token = default)
+        public async Task UpdateAsync(int id, UpdateOrderItemRequestModel request, CancellationToken token = default)
         {
-            var orderItem = await orderItemRepository.GetAsync(request.Id, token);
+            var orderItem = await orderItemRepository.GetAsync(id, token);
 
             if (orderItem is null)
             {
-                throw new NotFoundException(nameof(OrderItem), request.Id);
+                throw new Exception($"Not found entity with the following id: {id}");
             }
-
-            orderItem = mapper.Map<OrderItem>(request);
+            mapper.Map(request, orderItem);
             await orderItemRepository.UpdateAsync(orderItem, token);
         }
     }

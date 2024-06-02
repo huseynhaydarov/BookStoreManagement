@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BookRequests;
 using Contracts.Responses;
 using Domain.Entities;
@@ -50,15 +51,15 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         return mapper.Map<BookResponse?>(response); 
     }
 
-    public async Task UpdateAsync(UpdateBookRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(int id, UpdateBookRequestModel request, CancellationToken token = default)
     {
-        var book = await bookRepository.GetAsync(request.Id, token);
+        var book = await bookRepository.GetAsync(id, token);
 
-        if(book is null)
+        if (book is null)
         {
-            throw new NotFoundException(nameof(Book), request.Id);
+            throw new Exception($"Not found entity with the following id: {id}");
         }
-        book = mapper.Map<Book>(request);
-         await bookRepository.UpdateAsync(book, token);
+        mapper.Map(request, book);
+        await bookRepository.UpdateAsync(book, token);
     }
 }

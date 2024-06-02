@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
 using Contracts.Requests.BookRequests;
@@ -52,15 +53,15 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
         return mapper.Map<BankAccountResponse?>(response);
     }
 
-    public async Task UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(int id, UpdateBankAccountRequestModel request, CancellationToken token = default)
     {
-        var account = await accountRepository.GetAsync(request.Id, token);
+        var account = await accountRepository.GetAsync(id, token);
 
         if (account is null)
         {
-            throw new NotFoundException(nameof(BankAccount), request.Id);
+            throw new Exception($"Not found entity with the following id: {id}");
         }
-        account = mapper.Map<BankAccount>(request);
-         await accountRepository.UpdateAsync(account, token);
+        mapper.Map(request, account);
+        await accountRepository.UpdateAsync(account, token);
     }
 }
