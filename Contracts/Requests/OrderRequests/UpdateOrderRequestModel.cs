@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.Requests.OrderRequests;
 
-public record UpdateAuhtorRequestModel
+public record UpdateOrderRequestModel
 {
     [JsonIgnore]
     public int Id { get; set; }

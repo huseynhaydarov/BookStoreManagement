@@ -1,4 +1,5 @@
-﻿using Contracts.Requests.BankAccountRequests;
+﻿using Contracts.Requests.BankAccount;
+using Contracts.Requests.BankAccountRequests;
 using Contracts.Requests.BookRequests;
 using Contracts.Responses;
 using System;
@@ -15,7 +16,7 @@ public interface IBankAccountService
 
     Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default);
 
-    Task<BankAccountResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default);
+    Task<BankAccountResponse> CreateAsync(CreateBankAccountRequestModel request, CancellationToken token = default);
 
     Task<bool> UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default);
 

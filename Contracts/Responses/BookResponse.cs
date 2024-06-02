@@ -18,6 +18,7 @@ public record BookResponse
     public int PublicationYear { get; set; }
     public int StockQuantity { get; set; }
     public string ISBN { get; set; }
+    public string ImagePath { get; set; }
     public BookType Type { get; set; }
 
     public int AuthorId { get; set; }

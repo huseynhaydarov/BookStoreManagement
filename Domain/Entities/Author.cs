@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Author : Person
+public class Author : BaseEntity
 {
+    public string FullName { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public string Biography { get; set; }
-
     public virtual ICollection<Book> Books { get; set; }
 }

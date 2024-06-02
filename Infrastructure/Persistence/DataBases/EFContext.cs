@@ -24,7 +24,6 @@ public class EFContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Ignore<BaseEntity>();
-        modelBuilder.Ignore<Person>();
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
     }
 }

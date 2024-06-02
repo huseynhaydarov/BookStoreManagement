@@ -22,6 +22,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.Property(bk => bk.PublicationYear).IsRequired();
         builder.Property(bk => bk.StockQuantity).IsRequired();
         builder.Property(bk => bk.ISBN).HasMaxLength(150).IsRequired();
+        builder.Property(bk => bk.ImagPath).HasMaxLength(150).IsRequired();
         builder.Property(bk => bk.Type).HasConversion(
             bk => bk.ToString(),
             bk => (BookType)Enum.Parse(typeof(BookType), bk));

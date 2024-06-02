@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Services;
 
-internal interface IPublisherService
+public interface IPublisherService
 {
     Task<PublisherResponse?> GetAsync(int id, CancellationToken token = default);
 
