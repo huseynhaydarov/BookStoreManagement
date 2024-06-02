@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.CategoryRequests;
 using Contracts.Responses;
 using Domain.Entities;
@@ -50,15 +51,15 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         return mapper.Map<CategoryResponse>(response);
     }
 
-    public async Task UpdateAsync(UpdateCategoryRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(int id, UpdateCategoryRequestModel request, CancellationToken token = default)
     {
-        var category = await categoryRepository.GetAsync(request.Id, token);
+        var category = await categoryRepository.GetAsync(id, token);
 
-        if(category is null)
+        if (category is null)
         {
-            throw new NotFoundException(nameof(Category), request.Id);
+            throw new Exception($"Not found entity with the following id: {id}");
         }
-        category = mapper.Map<Category>(request);
+        mapper.Map<Category>(request);
         await categoryRepository.UpdateAsync(category, token);
     }
 }

@@ -17,7 +17,7 @@ public interface IPublisherService
 
     Task<PublisherResponse> CreateAsync(CreatePublisherRequestModel request, CancellationToken token = default);
 
-    Task UpdateAsync(UpdatePublisherRequestModel request, CancellationToken token = default);
+    Task UpdateAsync(int id, UpdatePublisherRequestModel request, CancellationToken token = default);
 
     Task<bool> DeleteAsync(int id, CancellationToken token = default);
 }

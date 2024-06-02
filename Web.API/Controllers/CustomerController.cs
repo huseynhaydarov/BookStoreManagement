@@ -33,7 +33,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCustomerRequestModel request,
         CancellationToken token)
     {
-        await customerService.UpdateAsync(request, token);
+        await customerService.UpdateAsync(id, request, token);
         return Ok();
     }
 

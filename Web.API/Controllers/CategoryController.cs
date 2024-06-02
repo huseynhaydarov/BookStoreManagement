@@ -35,7 +35,7 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestModel request,
     CancellationToken token)
     {
-        await categoryService.UpdateAsync(request, token);
+        await categoryService.UpdateAsync(id, request, token);
         return Ok();
     }
 

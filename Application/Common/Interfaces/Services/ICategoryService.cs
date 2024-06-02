@@ -17,7 +17,7 @@ namespace Application.Common.Interfaces.Services
 
         Task<CategoryResponse> CreateAsync(CreateCategoryRequestModel request, CancellationToken token = default);
 
-        Task UpdateAsync(UpdateCategoryRequestModel request, CancellationToken token = default);
+        Task UpdateAsync(int id, UpdateCategoryRequestModel request, CancellationToken token = default);
 
         Task<bool> DeleteAsync(int id, CancellationToken token = default);
     }

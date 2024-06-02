@@ -10,8 +10,7 @@ namespace Contracts.Requests.OrderRequests;
 
 public record UpdateOrderRequestModel
 {
-    [JsonIgnore]
-    public int Id { get; set; }
+   
     public DateTime OrderDate { get; set; } = DateTime.Now;
     public OrderStatus Status { get; set; }
     public decimal TotalAmount { get; set; }

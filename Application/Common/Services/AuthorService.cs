@@ -56,9 +56,9 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
 
         if (author is null)
         {
-            throw new NotFoundException(nameof(Author), id);
+            throw new Exception($"Not found entity with the following id: {id}");
         }
-        author = mapper.Map<Author>(request);
+        mapper.Map<Author>(request);
         await authorRepository.UpdateAsync(author, token);
     }
 }

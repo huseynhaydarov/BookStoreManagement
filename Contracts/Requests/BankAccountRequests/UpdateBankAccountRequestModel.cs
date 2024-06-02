@@ -9,8 +9,6 @@ namespace Contracts.Requests.BankAccountRequests;
 
 public record UpdateBankAccountRequestModel
 {
-    [JsonIgnore]
-    public int Id { get; set; }
     public int AccountNumber { get; set; }
 
     public int CustomerId { get; set; }
