@@ -44,7 +44,7 @@ public class AutoMapperConfiguration : Profile
 
         CreateMap<CreateOrderRequestModel, Order>();
         CreateMap<Order, OrderResponse>();
-        CreateMap<UpdateOrderRequestModel, Order>();
+        CreateMap<UpdateAuhtorRequestModel, Order>();
 
         CreateMap<CreateOrderItemRequestModel, OrderItem>();
         CreateMap<OrderItem, OrderItemResponse>();

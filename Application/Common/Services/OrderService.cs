@@ -52,7 +52,7 @@ namespace Application.Common.Services
             return mapper.Map<OrderResponse>(response);
         }
 
-        public async Task<bool> UpdateAsync(UpdateOrderRequestModel request, CancellationToken token = default)
+        public async Task<bool> UpdateAsync(UpdateAuhtorRequestModel request, CancellationToken token = default)
         {
             var order = await orderRepository.GetAsync(request.Id, token);
 

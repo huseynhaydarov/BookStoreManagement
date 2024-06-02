@@ -13,5 +13,15 @@
             public const string Update = $"{Base}/{{id:int}}";
             public const string Delete = $"{Base}/{{id:int}}";
         }
+
+        public static class Author
+        {
+            public const string Base = $"{ApiBase}/auhtors";
+            public const string Create = Base;
+            public const string Get = $"{Base}/{{id:int}}";
+            public const string GetAll = Base;
+            public const string Update = $"{Base}/{{id:int}}";
+            public const string Delete = $"{Base}/{{id:int}}";
+        }
     }
 }
