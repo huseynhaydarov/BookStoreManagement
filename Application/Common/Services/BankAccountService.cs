@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Services;
 using Application.Exceptions;
 using AutoMapper;
+using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
 using Contracts.Requests.BookRequests;
 using Contracts.Responses;
@@ -16,10 +17,10 @@ namespace Application.Common.Services;
 
 public class BankAccountService(IBankAccountRepository accountRepository, IMapper mapper) : IBankAccountService
 {
-    public async Task<BankAccountResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default)
+    public async Task<BankAccountResponse> CreateAsync(CreateBankAccountRequestModel request, CancellationToken token = default)
     {
-        var account = mapper.Map<BankAccount>(request);
-        var response = await accountRepository.CreateAsync(account, token);
+        var book = mapper.Map<BankAccount>(request);
+        var response = await accountRepository.CreateAsync(book, token);
         return mapper.Map<BankAccountResponse>(response);
     }
 
@@ -27,7 +28,7 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
     {
         var account = await accountRepository.GetAsync(id, token);
 
-        if (account == null) 
+        if (account is null)
         {
             throw new NotFoundException(nameof(account), id);
         }
@@ -44,22 +45,22 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
     {
         var response = await accountRepository.GetAsync(id, token);
 
-        if(response is null)
+        if (response is null)
         {
             throw new NotFoundException(nameof(BankAccount), id);
         }
         return mapper.Map<BankAccountResponse?>(response);
     }
 
-    public async Task<bool> UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default)
     {
         var account = await accountRepository.GetAsync(request.Id, token);
 
-        if(account is null)
+        if (account is null)
         {
             throw new NotFoundException(nameof(BankAccount), request.Id);
         }
         account = mapper.Map<BankAccount>(request);
-        return await accountRepository.UpdateAsync(account, token);
+         await accountRepository.UpdateAsync(account, token);
     }
 }

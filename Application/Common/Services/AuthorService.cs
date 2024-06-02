@@ -50,15 +50,15 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
         return mapper.Map<AuthorResponse?>(response);
         }
 
-    public async Task<bool> UpdateAsync(UpdateAuthorRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(int id, UpdateAuthorRequestModel request, CancellationToken token = default)
     {
-        var author = await authorRepository.GetAsync(request.Id, token);
+        var author = await authorRepository.GetAsync(id, token);
 
         if (author is null)
         {
-            throw new NotFoundException(nameof(Author), request.Id);
+            throw new NotFoundException(nameof(Author), id);
         }
         author = mapper.Map<Author>(request);
-        return await authorRepository.UpdateAsync(author, token);
+        await authorRepository.UpdateAsync(author, token);
     }
 }

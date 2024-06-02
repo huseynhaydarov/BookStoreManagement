@@ -50,7 +50,7 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         return mapper.Map<BookResponse?>(response); 
     }
 
-    public async Task<bool> UpdateAsync(UpdateBookRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(UpdateBookRequestModel request, CancellationToken token = default)
     {
         var book = await bookRepository.GetAsync(request.Id, token);
 
@@ -59,6 +59,6 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
             throw new NotFoundException(nameof(Book), request.Id);
         }
         book = mapper.Map<Book>(request);
-        return await bookRepository.UpdateAsync(book, token);
+         await bookRepository.UpdateAsync(book, token);
     }
 }

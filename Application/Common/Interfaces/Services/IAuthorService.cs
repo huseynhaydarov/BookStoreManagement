@@ -17,7 +17,7 @@ public interface IAuthorService
 
     Task<AuthorResponse> CreateAsync(CreateAuthorRequestModel request, CancellationToken token = default);
 
-    Task<bool> UpdateAsync(UpdateAuthorRequestModel request, CancellationToken token = default);
+    Task UpdateAsync(int id, UpdateAuthorRequestModel request, CancellationToken token = default);
 
     Task<bool> DeleteAsync(int id, CancellationToken token = default);
 }

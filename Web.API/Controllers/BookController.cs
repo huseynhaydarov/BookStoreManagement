@@ -34,8 +34,8 @@ public class BookController(IBookService bookService) : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request,
         CancellationToken token)
     {
-        var response = await bookService.UpdateAsync(request, token);
-        return Ok(response);
+      await bookService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.Book.Delete)]

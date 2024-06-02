@@ -18,11 +18,9 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Biography = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false)
+                    FullName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Biography = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,10 +48,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RegisteredDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false)
+                    Email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -131,6 +126,7 @@ namespace Infrastructure.Migrations
                     PublicationYear = table.Column<int>(type: "integer", nullable: false),
                     StockQuantity = table.Column<int>(type: "integer", nullable: false),
                     ISBN = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    ImagPath = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
                     PublisherId = table.Column<int>(type: "integer", nullable: false),

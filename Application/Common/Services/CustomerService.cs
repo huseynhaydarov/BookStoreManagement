@@ -53,7 +53,7 @@ namespace Application.Common.Services
             return mapper.Map<CustomerResponse>(response);
         }
 
-        public async Task<bool> UpdateAsync(UpdateCustomerRequestModel request, CancellationToken token = default)
+        public async Task UpdateAsync(UpdateCustomerRequestModel request, CancellationToken token = default)
         {
             var customer = await customerRepository.GetAsync(request.Id, token);
 
@@ -63,7 +63,7 @@ namespace Application.Common.Services
             }
 
             customer = mapper.Map<Customer>(request);
-            return await customerRepository.UpdateAsync(customer, token);
+             await customerRepository.UpdateAsync(customer, token);
         }
     }
 }

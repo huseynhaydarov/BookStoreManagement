@@ -50,7 +50,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         return mapper.Map<CategoryResponse>(response);
     }
 
-    public async Task<bool> UpdateAsync(UpdateCategoryRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(UpdateCategoryRequestModel request, CancellationToken token = default)
     {
         var category = await categoryRepository.GetAsync(request.Id, token);
 
@@ -59,6 +59,6 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
             throw new NotFoundException(nameof(Category), request.Id);
         }
         category = mapper.Map<Category>(request);
-        return await categoryRepository.UpdateAsync(category, token);
+        await categoryRepository.UpdateAsync(category, token);
     }
 }

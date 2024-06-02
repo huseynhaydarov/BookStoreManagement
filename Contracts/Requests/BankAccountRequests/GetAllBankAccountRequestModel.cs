@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Contracts.Requests.BankAccountRequests;
-
-public record GetAllBankAccountRequestModel
+namespace Contracts.Requests.BankAccountRequests
 {
-    //public IEnumerable<BankAccount> Items { get; init; } = Enumerable.Empty<BankAccount>();
+    public record GetAllBankAccountRequestModel
+    {
+        public IEnumerable<Domain.Entities.BankAccount> Items { get; init; } = Enumerable.Empty<Domain.Entities.BankAccount>();
+    }
 }

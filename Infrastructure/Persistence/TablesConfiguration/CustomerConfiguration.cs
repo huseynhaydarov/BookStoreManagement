@@ -15,6 +15,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(c => c.Id);
         builder.Property(c => c.RegisteredDate).IsRequired();
+        builder.Property(c => c.Email).IsRequired();
         builder.HasMany(c => c.Accounts).WithOne(c => c.Customer).HasForeignKey(c => c.CustomerId);
         builder.HasMany(c => c.Orders).WithOne(c => c.Customer).HasForeignKey(c => c.CustomerId);
     }
