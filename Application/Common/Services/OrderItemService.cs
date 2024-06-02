@@ -63,7 +63,7 @@ namespace Application.Common.Services
             {
                 throw new Exception($"Not found entity with the following id: {id}");
             }
-            mapper.Map<OrderItem>(request);
+            mapper.Map(request, orderItem);
             await orderItemRepository.UpdateAsync(orderItem, token);
         }
     }

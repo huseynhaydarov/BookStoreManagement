@@ -59,7 +59,7 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
         {
             throw new Exception($"Not found entity with the following id: {id}");
         }
-        mapper.Map<Publisher>(request);
+        mapper.Map(request, publisher);
         await publisherRepository.UpdateAsync(publisher, token);
     }
 }

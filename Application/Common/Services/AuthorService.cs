@@ -58,7 +58,8 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
         {
             throw new Exception($"Not found entity with the following id: {id}");
         }
-        mapper.Map<Author>(request);
+        mapper.Map(request, author);
         await authorRepository.UpdateAsync(author, token);
     }
 }
+ 

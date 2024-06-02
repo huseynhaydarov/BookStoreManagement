@@ -61,7 +61,7 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
         {
             throw new Exception($"Not found entity with the following id: {id}");
         }
-        mapper.Map<BankAccount>(request);
+        mapper.Map(request, account);
         await accountRepository.UpdateAsync(account, token);
     }
 }

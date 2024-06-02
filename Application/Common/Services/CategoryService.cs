@@ -59,7 +59,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         {
             throw new Exception($"Not found entity with the following id: {id}");
         }
-        mapper.Map<Category>(request);
+        mapper.Map(request, category);
         await categoryRepository.UpdateAsync(category, token);
     }
 }

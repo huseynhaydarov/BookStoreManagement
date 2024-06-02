@@ -59,7 +59,7 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         {
             throw new Exception($"Not found entity with the following id: {id}");
         }
-        mapper.Map<Category>(request);
+        mapper.Map(request, book);
         await bookRepository.UpdateAsync(book, token);
     }
 }
