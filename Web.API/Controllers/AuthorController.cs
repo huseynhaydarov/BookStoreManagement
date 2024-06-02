@@ -36,8 +36,8 @@ public class AuhtorController(IAuthorService authorService) : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAuthorRequestModel request,
      CancellationToken token)
     {
-        var response = await authorService.UpdateAsync(request, token);
-        return Ok(response);
+        await authorService.UpdateAsync(id, request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.Author.Delete)]

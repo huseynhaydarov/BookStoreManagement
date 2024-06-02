@@ -50,7 +50,7 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
         return mapper.Map<PublisherResponse>(response); 
     }
 
-    public async Task<bool> UpdateAsync(UpdatePublisherRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(UpdatePublisherRequestModel request, CancellationToken token = default)
     {
         var publisher = await publisherRepository.GetAsync(request.Id, token);
 
@@ -59,7 +59,7 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
                 throw new NotFoundException(nameof(Publisher), request.Id);
          }
         publisher = mapper.Map<Publisher>(request);
-        return await publisherRepository.UpdateAsync(publisher,token);
+        await publisherRepository.UpdateAsync(publisher,token);
             
     }
 }

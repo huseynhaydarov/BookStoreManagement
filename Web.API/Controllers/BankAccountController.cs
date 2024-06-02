@@ -37,8 +37,8 @@ public class BankAccountController(IBankAccountService accountService) : Control
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBankAccountRequestModel request,
     CancellationToken token)
     {
-        var response = await accountService.UpdateAsync(request, token);
-        return Ok(response);
+        await accountService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.BankAccount.Delete)]

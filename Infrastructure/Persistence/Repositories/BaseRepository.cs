@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Repositories;
+using Application.Exceptions;
 using Domain.Abstract;
 using Infrastructure.Persistence.DataBases;
 using Microsoft.EntityFrameworkCore;
@@ -41,12 +42,17 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
     public async Task<TEntity> GetAsync(int id, CancellationToken token = default)
     {
-       return await _dbSet.FirstAsync(x => x.Id == id, token);
+        var entity = await _dbSet.FindAsync(id, token);
+
+        if (entity is null)
+            throw new Exception($"Not found entity with the following id: {id}");
+
+        return entity;
     }
 
-    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken token = default)
+    public async Task UpdateAsync(TEntity entity, CancellationToken token = default)
     {
         _dbSet.Update(entity);
-        return await _context.SaveChangesAsync(token) > 0;
+         await _context.SaveChangesAsync(token);
     }
 }

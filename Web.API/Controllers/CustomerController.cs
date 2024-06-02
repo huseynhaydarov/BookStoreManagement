@@ -33,8 +33,8 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCustomerRequestModel request,
         CancellationToken token)
     {
-        var response = await customerService.UpdateAsync(request, token);
-        return Ok(response);
+        await customerService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.Customer.Delete)]

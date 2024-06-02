@@ -52,7 +52,7 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
         return mapper.Map<BankAccountResponse?>(response);
     }
 
-    public async Task<bool> UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default)
+    public async Task UpdateAsync(UpdateBankAccountRequestModel request, CancellationToken token = default)
     {
         var account = await accountRepository.GetAsync(request.Id, token);
 
@@ -61,6 +61,6 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
             throw new NotFoundException(nameof(BankAccount), request.Id);
         }
         account = mapper.Map<BankAccount>(request);
-        return await accountRepository.UpdateAsync(account, token);
+         await accountRepository.UpdateAsync(account, token);
     }
 }

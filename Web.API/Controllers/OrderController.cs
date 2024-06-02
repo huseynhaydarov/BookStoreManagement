@@ -31,8 +31,8 @@ public class OrderController(IOrderService orderService) : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateOrderRequestModel request,
         CancellationToken token)
     {
-        var response = await orderService.UpdateAsync(request, token);
-        return Ok(response);
+        await orderService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.Order.Delete)]

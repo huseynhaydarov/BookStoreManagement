@@ -16,7 +16,7 @@ public interface IOrderItemService
 
     Task<OrderItemResponse> CreateAsync(CreateOrderItemRequestModel request, CancellationToken token = default);
 
-    Task<bool> UpdateAsync(UpdateOrderItemRequestModel request, CancellationToken token = default);
+    Task UpdateAsync(UpdateOrderItemRequestModel request, CancellationToken token = default);
 
     Task<bool> DeleteAsync(int id, CancellationToken token = default);
 }

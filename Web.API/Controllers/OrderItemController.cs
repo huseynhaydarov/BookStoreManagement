@@ -33,8 +33,8 @@ public class OrderItemController(IOrderItemService orderItemService) : Controlle
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateOrderItemRequestModel request,
         CancellationToken token)
     {
-        var response = await orderItemService.UpdateAsync(request, token);
-        return Ok(response);
+        await orderItemService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.OrderItem.Delete)]

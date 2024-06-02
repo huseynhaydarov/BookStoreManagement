@@ -35,8 +35,8 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestModel request,
     CancellationToken token)
     {
-        var response = await categoryService.UpdateAsync(request, token);
-        return Ok(response);
+        await categoryService.UpdateAsync(request, token);
+        return Ok();
     }
 
     [HttpDelete(ApiEndpoints.Category.Delete)]
