@@ -9,7 +9,7 @@ namespace Web.API.Controllers;
 [ApiController]
 [Route("[controller]")]
 
-public class AuhtorController(IAuthorService authorService) : ControllerBase
+public class AuthorController(IAuthorService authorService) : ControllerBase
 {
     [HttpPost(ApiEndpoints.Author.Create)]
     public async Task<IActionResult> Create([FromBody] CreateAuthorRequestModel request, CancellationToken token)

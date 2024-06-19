@@ -93,7 +93,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<string>("ImagPath")
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20240602120941_InitialCreate")]
+    [Migration("20240605131043_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -96,7 +96,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<string>("ImagPath")
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");

@@ -126,7 +126,7 @@ namespace Infrastructure.Migrations
                     PublicationYear = table.Column<int>(type: "integer", nullable: false),
                     StockQuantity = table.Column<int>(type: "integer", nullable: false),
                     ISBN = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    ImagPath = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    ImagePath = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
                     PublisherId = table.Column<int>(type: "integer", nullable: false),
