@@ -2,7 +2,9 @@ using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
 using Application.Common.Services;
 using Application.Mappers;
+using Contracts.Validators.BookValidators;
 using Domain.Entities;
+using FluentValidation;
 using Infrastructure.Persistence.DataBases;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookRequestValidator>();
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseRepository<Book>), typeof(BaseRepository<Book>));
