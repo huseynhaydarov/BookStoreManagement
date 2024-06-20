@@ -14,5 +14,5 @@ public class Publisher : BaseEntity
     public string Phone { get; set; }   
     public string Email { get; set; }
 
-    public virtual ICollection<Book> Books { get; set; }
+    public virtual ICollection<BookEntity> Books { get; set; }
 }

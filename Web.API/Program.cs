@@ -1,3 +1,5 @@
+using Application.Books.Queries;
+using Application.Commands.Book;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
 using Application.Common.Services;
@@ -5,9 +7,12 @@ using Application.Mappers;
 using Contracts.Validators.BookValidators;
 using Domain.Entities;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure.Persistence.DataBases;
 using Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +20,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddValidatorsFromAssemblyContaining<CreateBookRequestValidator>();
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateBookCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateBookCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetBookQuery).Assembly));
+
+//builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateBookRequestValidator>());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-builder.Services.AddScoped(typeof(IBaseRepository<Book>), typeof(BaseRepository<Book>));
+builder.Services.AddScoped(typeof(IBaseRepository<BookEntity>), typeof(BaseRepository<BookEntity>));
 builder.Services.AddScoped(typeof(IBaseRepository<Author>), typeof(BaseRepository<Author>));
 builder.Services.AddScoped(typeof(IBaseRepository<BankAccount>), typeof(BaseRepository<BankAccount>));
 builder.Services.AddScoped(typeof(IBaseRepository<Category>), typeof(BaseRepository<Category>));

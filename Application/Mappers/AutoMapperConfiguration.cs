@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.Books.Queries;
+using Application.Commands.Book;
+using AutoMapper;
 using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
@@ -30,9 +32,13 @@ public class AutoMapperConfiguration : Profile
         CreateMap<BankAccount, BankAccountResponse>();
         CreateMap<UpdateBankAccountRequestModel, BankAccount>();
 
-        CreateMap<CreateBookRequestsModel, Book>();
-        CreateMap<Book, BookResponse>();
-        CreateMap<UpdateBookRequestModel, Book>();
+        CreateMap<CreateBookRequestsModel, BookEntity>();
+        CreateMap<CreateBookCommand, BookEntity>();
+        CreateMap<BookEntity, BookResponse>();
+        CreateMap<UpdateBookRequestModel, UpdateBookCommand>();
+        CreateMap<UpdateBookCommand, BookEntity>();
+        CreateMap<GetBookQuery, BookEntity>();
+
 
         CreateMap<CreateCategoryRequestModel, Category>();
         CreateMap<Category, CategoryResponse>();

@@ -50,9 +50,10 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return entity;
     }
 
-    public async Task UpdateAsync(TEntity entity, CancellationToken token = default)
+    public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken token = default)
     {
-        _dbSet.Update(entity);
-         await _context.SaveChangesAsync(token);
+        entity = _dbSet.Update(entity).Entity;
+        await _context.SaveChangesAsync(token);
+        return entity;
     }
 }

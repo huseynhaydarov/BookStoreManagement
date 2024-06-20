@@ -1,47 +1,58 @@
-﻿using Application.Common.Interfaces.Services;
+﻿using Application.Books.Queries;
+using Application.Commands.Book;
+using AutoMapper;
 using Contracts.Requests.BookRequests;
 using Contracts.Requests.CustomerRequests;
+using Contracts.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BookController(IBookService bookService) : ControllerBase
+public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
 {
+    private readonly IMediator _mediator = mediator;
+    private readonly IMapper _mapper = mapper;
+
+
     [HttpPost(ApiEndpoints.Book.Create)]
-    public async Task<IActionResult> Create([FromBody] CreateBookRequestsModel request, CancellationToken token)
+    public async Task<ActionResult<BookResponse>> Create([FromBody] CreateBookRequestsModel request, 
+        CancellationToken token)
     {
-        var response = await bookService.CreateAsync(request, token);
-        return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
+        var response = await _mediator.Send(_mapper.Map<CreateBookRequestsModel, CreateBookCommand>(request), token);
+        return Ok(response);
     }
 
     [HttpGet(ApiEndpoints.Book.Get)]
-    public async Task<IActionResult> Get([FromRoute] int id, CancellationToken token)
+    public async Task<ActionResult<BookResponse>> Get([FromRoute] int id, CancellationToken token)
     {
-        var response = await bookService.GetAsync(id, token);
+        var response = await _mediator.Send(new GetBookQuery(id));
         return Ok(response);
     }
 
-    [HttpGet(ApiEndpoints.Book.GetAll)]
-    public async Task<IActionResult> GetAll(CancellationToken token)
-    {
-        var response = await bookService.GetAllAsync(token);
-        return Ok(response);
-    }
+    //[HttpGet(ApiEndpoints.Book.GetAll)]
+    //public async Task<IActionResult> GetAll(CancellationToken token)
+    //{
+    //    var response = await bookService.GetAllAsync(token);
+    //    return Ok(response);
+    //}
 
     [HttpPut(ApiEndpoints.Book.Update)]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request,
-        CancellationToken token)
+    public async Task<ActionResult<BookResponse>> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request, CancellationToken token)
     {
-      await bookService.UpdateAsync(id, request, token);
-      return Ok();
-    }
+        var command = _mapper.Map<UpdateBookCommand>(request);
+        command.Id = id;
 
-    [HttpDelete(ApiEndpoints.Book.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    {
-        var response = await bookService.DeleteAsync(id, token);
+        var response = await _mediator.Send(command, token);
         return Ok(response);
     }
+
+    //[HttpDelete(ApiEndpoints.Book.Delete)]
+    //public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    //{
+    //    var response = await bookService.DeleteAsync(id, token);
+    //    return Ok(response);
+    //}
 }
