@@ -15,6 +15,6 @@ public class OrderItem : BaseEntity
 
     public Order Order { get; set; }
     public int OrderId { get; set; }
-    public Book Book { get; set; }
+    public BookEntity Book { get; set; }
     public int BookId { get; set; }
 }

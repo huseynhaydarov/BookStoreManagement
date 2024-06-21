@@ -9,5 +9,5 @@ namespace Contracts.Requests.BookRequests;
 
 public record GetAllBookRequestModel
 {
-    public IEnumerable<Book> Items { get; init; } = Enumerable.Empty<Book>();
+    public IEnumerable<BookEntity> Items { get; init; } = Enumerable.Empty<BookEntity>();
 }

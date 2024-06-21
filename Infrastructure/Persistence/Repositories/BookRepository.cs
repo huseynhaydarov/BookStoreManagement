@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class BookRepository : BaseRepository<Book>, IBookRepository
+public class BookRepository : BaseRepository<BookEntity>, IBookRepository
 {
     public BookRepository(EFContext context) : base(context)
     {

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class BookConfiguration : IEntityTypeConfiguration<Book>
+public class BookConfiguration : IEntityTypeConfiguration<BookEntity>
 {
-    public void Configure(EntityTypeBuilder<Book> builder)
+    public void Configure(EntityTypeBuilder<BookEntity> builder)
     {
         builder.HasKey(bk => bk.Id);
         builder.Property(bk => bk.Title).HasMaxLength(150).IsRequired();

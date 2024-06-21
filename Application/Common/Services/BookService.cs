@@ -16,9 +16,10 @@ namespace Application.Common.Services;
 
 public class BookService(IBookRepository bookRepository, IMapper mapper) : IBookService
 {
+    
     public async Task<BookResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default)
     {
-        var book = mapper.Map<Book>(request);
+        var book = mapper.Map<BookEntity>(request);
         var response = await bookRepository.CreateAsync(book, token);
         return mapper.Map<BookResponse>(response);
     }
@@ -46,7 +47,7 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
 
         if(response is null)
         {
-            throw new NotFoundException(nameof(Book), id);
+            throw new NotFoundException(nameof(BookEntity), id);
         }
         return mapper.Map<BookResponse?>(response); 
     }

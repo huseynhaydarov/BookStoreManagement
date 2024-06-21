@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface IBookRepository : IBaseRepository<Book>
+public interface IBookRepository : IBaseRepository<BookEntity>
 {
 }

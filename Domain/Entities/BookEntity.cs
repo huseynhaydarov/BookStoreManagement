@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Book : BaseEntity
+public class BookEntity : BaseEntity
 {
     public string Title { get; set; }
     public string Description { get; set; }
