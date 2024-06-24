@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Order : BaseEntity
+public class OrderEnitity : BaseEntity
 {
     public DateTime OrderDate { get; set; } = DateTime.Now;
     public OrderStatus Status { get; set; }
     public decimal TotalAmount { get; set; }
 
-    public Customer Customer { get; set; }
+    public CustomerEntity Customer { get; set; }
     public int CustomerId { get; set; }  
 
-    public virtual ICollection<OrderItem> Items { get; set; }
+    public virtual ICollection<OrderItemEntity> Items { get; set; }
 }

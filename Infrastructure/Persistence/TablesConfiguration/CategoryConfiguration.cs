@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+public class CategoryConfiguration : IEntityTypeConfiguration<CategoryEntity>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<CategoryEntity> builder)
     {
         builder.HasKey(ca => ca.Id);
         builder.Property(ca => ca.Name).HasMaxLength(150).IsRequired();

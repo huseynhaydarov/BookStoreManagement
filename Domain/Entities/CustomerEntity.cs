@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Customer : BaseEntity
+public class CustomerEntity : BaseEntity
 { 
     public DateTime RegisteredDate { get; set; }
     public string Email { get; set; }
 
-    public virtual ICollection<BankAccount> Accounts { get; set; }
-    public virtual ICollection<Order> Orders { get; set; }
+    public virtual ICollection<BankAccountEntity> Accounts { get; set; }
+    public virtual ICollection<OrderEnitity> Orders { get; set; }
 }
 

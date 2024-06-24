@@ -17,7 +17,7 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
 {
     public async Task<AuthorResponse> CreateAsync(CreateAuthorRequestModel request, CancellationToken token = default)
     {
-        var author = mapper.Map<Author>(request);
+        var author = mapper.Map<AuthorEntity>(request);
         var response = await authorRepository.CreateAsync(author, token);
         return mapper.Map<AuthorResponse>(response);
     }
@@ -45,7 +45,7 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
 
         if (response is null)
         {
-            throw new NotFoundException(nameof(Author), id);
+            throw new NotFoundException(nameof(AuthorEntity), id);
         } 
         return mapper.Map<AuthorResponse?>(response);
         }

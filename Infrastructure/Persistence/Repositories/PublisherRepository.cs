@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class PublisherRepository : BaseRepository<Publisher>, IPublisherRepository
+    public class PublisherRepository : BaseRepository<PublisherEntity>, IPublisherRepository
     {
         public PublisherRepository(EFContext context) : base(context)
         { 

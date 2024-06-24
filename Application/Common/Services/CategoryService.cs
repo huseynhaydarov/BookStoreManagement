@@ -18,7 +18,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 {
     public async Task<CategoryResponse> CreateAsync(CreateCategoryRequestModel request, CancellationToken token = default)
     {
-        var category = mapper.Map<Category>(request);
+        var category = mapper.Map<CategoryEntity>(request);
         var response = await categoryRepository.CreateAsync(category, token);
         return mapper.Map<CategoryResponse>(response);
     }
@@ -46,7 +46,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
         if(response is null)
         {
-            throw new NotFoundException(nameof(Category), id);
+            throw new NotFoundException(nameof(CategoryEntity), id);
         }
         return mapper.Map<CategoryResponse>(response);
     }

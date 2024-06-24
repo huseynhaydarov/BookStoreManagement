@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public class CustomerConfiguration : IEntityTypeConfiguration<CustomerEntity>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    public void Configure(EntityTypeBuilder<CustomerEntity> builder)
     {
         builder.HasKey(c => c.Id);
         builder.Property(c => c.RegisteredDate).IsRequired();

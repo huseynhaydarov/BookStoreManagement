@@ -9,5 +9,5 @@ namespace Contracts.Requests.AuthorRequests;
 
 public record GetAllAuthorRequestModel
 {
-    public IEnumerable<Author> Items { get; init; } = Enumerable.Empty<Author>();
+    public IEnumerable<AuthorEntity> Items { get; init; } = Enumerable.Empty<AuthorEntity>();
 }

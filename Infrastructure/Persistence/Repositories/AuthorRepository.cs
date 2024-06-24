@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class AuthorRepository : BaseRepository<Author>, IAuthorRepository
+public class AuthorRepository : BaseRepository<AuthorEntity>, IAuthorRepository
 {
     public AuthorRepository(EFContext context) : base(context)
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Author : BaseEntity
+public class AuthorEntity : BaseEntity
 {
     public string FullName { get; set; }
     public DateTime DateOfBirth { get; set; }

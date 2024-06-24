@@ -17,11 +17,11 @@ namespace Application.Common.Services;
 public class BookService(IBookRepository bookRepository, IMapper mapper) : IBookService
 {
     
-    public async Task<BookResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default)
+    public async Task<BankAccountResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default)
     {
         var book = mapper.Map<BookEntity>(request);
         var response = await bookRepository.CreateAsync(book, token);
-        return mapper.Map<BookResponse>(response);
+        return mapper.Map<BankAccountResponse>(response);
     }
 
     public async Task<bool> DeleteAsync(int id, CancellationToken token = default)
@@ -35,13 +35,13 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         return await bookRepository.DeleteAsync(book, token);
     }
 
-    public async Task<List<BookResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default)
     {
         var response = await bookRepository.GetAllAsync(token);
-        return mapper.Map<List<BookResponse>>(response);
+        return mapper.Map<List<BankAccountResponse>>(response);
     }
 
-    public async Task<BookResponse?> GetAsync(int id, CancellationToken token = default)
+    public async Task<BankAccountResponse?> GetAsync(int id, CancellationToken token = default)
     {
         var response = await bookRepository.GetAsync(id, token);
 
@@ -49,7 +49,7 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         {
             throw new NotFoundException(nameof(BookEntity), id);
         }
-        return mapper.Map<BookResponse?>(response); 
+        return mapper.Map<BankAccountResponse?>(response); 
     }
 
     public async Task UpdateAsync(int id, UpdateBookRequestModel request, CancellationToken token = default)

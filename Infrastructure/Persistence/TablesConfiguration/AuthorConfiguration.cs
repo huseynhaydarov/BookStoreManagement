@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class AuthorConfiguration : IEntityTypeConfiguration<Author>
+public class AuthorConfiguration : IEntityTypeConfiguration<AuthorEntity>
 {
-    public void Configure(EntityTypeBuilder<Author> builder)
+    public void Configure(EntityTypeBuilder<AuthorEntity> builder)
     {
         builder.HasKey(a  => a.Id);
         builder.Property(a => a.DateOfBirth).IsRequired();

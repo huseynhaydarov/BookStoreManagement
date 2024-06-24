@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class OrderConfiguration : IEntityTypeConfiguration<Order>
+public class OrderConfiguration : IEntityTypeConfiguration<OrderEnitity>
 {
-    public void Configure(EntityTypeBuilder<Order> builder)
+    public void Configure(EntityTypeBuilder<OrderEnitity> builder)
     {
         builder.HasKey(o => o.Id);
         builder.Property(o => o.OrderDate).IsRequired();

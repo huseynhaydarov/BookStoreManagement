@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface IOrderRepository : IBaseRepository<Order>
+public interface IOrderRepository : IBaseRepository<OrderEnitity>
 {
 }

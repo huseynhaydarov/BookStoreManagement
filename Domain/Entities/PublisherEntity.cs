@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Publisher : BaseEntity
+public class PublisherEntity : BaseEntity
 {
     public string Name { get; set; }
     public string Address { get; set; }

@@ -9,5 +9,5 @@ namespace Contracts.Requests.CategoryRequests;
 
 public record GetAllCategoryRequestModel
 {
-    public IEnumerable<Category> Items { get; init; } = Enumerable.Empty<Category>();
+    public IEnumerable<CategoryEntity> Items { get; init; } = Enumerable.Empty<CategoryEntity>();
 }

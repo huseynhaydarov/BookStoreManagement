@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20240605131043_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240621052737_CreateInit")]
+    partial class CreateInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Author", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("AuthorEntity");
                 });
 
             modelBuilder.Entity("Domain.Entities.BankAccount", b =>
@@ -72,7 +72,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("BankAccount");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Book", b =>
+            modelBuilder.Entity("Domain.Entities.BookEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Book");
+                    b.ToTable("BookEntity");
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -283,9 +283,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Book", b =>
+            modelBuilder.Entity("Domain.Entities.BookEntity", b =>
                 {
-                    b.HasOne("Domain.Entities.Author", "Author")
+                    b.HasOne("Domain.Entities.AuthorEntity", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -323,7 +323,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.OrderItem", b =>
                 {
-                    b.HasOne("Domain.Entities.Book", "Book")
+                    b.HasOne("Domain.Entities.BookEntity", "Book")
                         .WithMany("Items")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -340,12 +340,12 @@ namespace Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Author", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorEntity", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Book", b =>
+            modelBuilder.Entity("Domain.Entities.BookEntity", b =>
                 {
                     b.Navigation("Items");
                 });

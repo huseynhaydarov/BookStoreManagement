@@ -19,7 +19,7 @@ namespace Application.Common.Services
         public async Task<CustomerResponse> CreateAsync(CreateCustomerRequestModel request,
             CancellationToken token = default)
         {
-            var customer = mapper.Map<Customer>(request);
+            var customer = mapper.Map<CustomerEntity>(request);
             var response = await customerRepository.CreateAsync(customer, token);
             return mapper.Map<CustomerResponse>(response);
         }
@@ -29,7 +29,7 @@ namespace Application.Common.Services
             var customer = await customerRepository.GetAsync(id, token);
             if (customer is null)
             {
-                throw new NotFoundException(nameof(Customer), id);
+                throw new NotFoundException(nameof(CustomerEntity), id);
             }
 
             return await customerRepository.DeleteAsync(customer, token);
@@ -48,7 +48,7 @@ namespace Application.Common.Services
 
             if (response is null)
             {
-                throw new NotFoundException(nameof(Customer), id);
+                throw new NotFoundException(nameof(CustomerEntity), id);
             }
 
             return mapper.Map<CustomerResponse>(response);

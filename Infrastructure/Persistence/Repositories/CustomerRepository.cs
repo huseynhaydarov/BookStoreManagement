@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
+public class CustomerRepository : BaseRepository<CustomerEntity>, ICustomerRepository
 {
     public CustomerRepository(EFContext context) : base(context)
     {

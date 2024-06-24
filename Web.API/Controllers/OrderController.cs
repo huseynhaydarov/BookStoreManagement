@@ -1,44 +1,58 @@
-﻿using Application.Common.Interfaces.Services;
+﻿using Application.Books.Queries;
+using Application.Commands.Book;
+using Application.Common.Interfaces.Services;
+using Application.Order.Commands;
+using Application.Order.Queries;
+using AutoMapper;
+using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderRequests;
+using Contracts.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers;
 
-public class OrderController(IOrderService orderService) : ControllerBase
+public class OrderController(IMediator mediator, IMapper mapper) : ControllerBase
 {
+    private readonly IMediator _mediator = mediator;
+    private readonly IMapper _mapper = mapper;
+
     [HttpPost(ApiEndpoints.Order.Create)]
-    public async Task<IActionResult> Create([FromBody] CreateOrderRequestModel request, CancellationToken token)
+    public async Task<ActionResult<OrderResponse>> Create([FromBody] CreateOrderRequestModel request,
+        CancellationToken token)
     {
-        var response = await orderService.CreateAsync(request, token);
-        return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
+        var response = await _mediator.Send(_mapper.Map<CreateOrderRequestModel, CreateOrderCommand>(request), token);
+        return Ok(response);
     }
 
     [HttpGet(ApiEndpoints.Order.Get)]
-    public async Task<IActionResult> Get([FromRoute] int id, CancellationToken token)
+    public async Task<ActionResult<OrderResponse>> Get([FromRoute] int id, CancellationToken token)
     {
-        var response = await orderService.GetAsync(id, token);
+        var response = await _mediator.Send(new GetOrderQuery(id));
         return Ok(response);
     }
 
-    [HttpGet(ApiEndpoints.Order.GetAll)]
-    public async Task<IActionResult> GetAll(CancellationToken token)
-    {
-        var response = await orderService.GetAllAsync(token);
-        return Ok(response);
-    }
+    //[HttpGet(ApiEndpoints.Order.GetAll)]
+    //public async Task<IActionResult> GetAll(CancellationToken token)
+    //{
+    //    var response = await orderService.GetAllAsync(token);
+    //    return Ok(response);
+    //}
 
     [HttpPut(ApiEndpoints.Order.Update)]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateOrderRequestModel request,
-        CancellationToken token)
+    public async Task<ActionResult<OrderResponse>> Update([FromRoute] int id, [FromBody] UpdateOrderRequestModel request, CancellationToken token)
     {
-        await orderService.UpdateAsync(id, request, token);
-        return Ok();
-    }
+        var command = _mapper.Map<UpdateOrderCommand>(request);
+        command.Id = id;
 
-    [HttpDelete(ApiEndpoints.Order.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    {
-        var response = await orderService.DeleteAsync(id, token);
+        var response = await _mediator.Send(command, token);
         return Ok(response);
     }
+
+    //[HttpDelete(ApiEndpoints.Order.Delete)]
+    //public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    //{
+    //    var response = await orderService.DeleteAsync(id, token);
+    //    return Ok(response);
+    //}
 }

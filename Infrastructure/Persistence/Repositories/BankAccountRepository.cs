@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class BankAccountRepository : BaseRepository<BankAccount>, IBankAccountRepository
+public class BankAccountRepository : BaseRepository<BankAccountEntity>, IBankAccountRepository
 {
     public BankAccountRepository(EFContext context) : base(context)
     {

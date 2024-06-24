@@ -7,6 +7,6 @@ namespace Contracts.Requests.BankAccountRequests
 {
     public record GetAllBankAccountRequestModel
     {
-        public IEnumerable<Domain.Entities.BankAccount> Items { get; init; } = Enumerable.Empty<Domain.Entities.BankAccount>();
+        public IEnumerable<Domain.Entities.BankAccountEntity> Items { get; init; } = Enumerable.Empty<Domain.Entities.BankAccountEntity>();
     }
 }

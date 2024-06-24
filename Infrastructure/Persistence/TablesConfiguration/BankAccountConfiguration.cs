@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class BankAccountConfiguration : IEntityTypeConfiguration<BankAccount>
+public class BankAccountConfiguration : IEntityTypeConfiguration<BankAccountEntity>
 {
-    public void Configure(EntityTypeBuilder<BankAccount> builder)
+    public void Configure(EntityTypeBuilder<BankAccountEntity> builder)
     {
         builder.HasKey(b => b.Id);
         builder.Property(b => b.AccountNumber).IsRequired();

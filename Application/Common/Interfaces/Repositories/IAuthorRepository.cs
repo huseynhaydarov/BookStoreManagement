@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface IAuthorRepository : IBaseRepository<Author>
+public interface IAuthorRepository : IBaseRepository<AuthorEntity>
 {
 }

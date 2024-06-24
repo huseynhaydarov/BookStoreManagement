@@ -18,7 +18,7 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
 {
     public async Task<PublisherResponse> CreateAsync(CreatePublisherRequestModel request, CancellationToken token = default)
     {
-        var publisher = mapper.Map<Publisher>(request);
+        var publisher = mapper.Map<PublisherEntity>(request);
         var response = await publisherRepository.CreateAsync(publisher, token);
         return mapper.Map<PublisherResponse>(response);
     }
@@ -46,7 +46,7 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
 
         if (response is null)
         {
-            throw new NotFoundException(nameof(Publisher), id);
+            throw new NotFoundException(nameof(PublisherEntity), id);
         }
         return mapper.Map<PublisherResponse>(response); 
     }
