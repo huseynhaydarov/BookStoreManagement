@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface ICategoryRepository : IBaseRepository<Category>
+public interface ICategoryRepository : IBaseRepository<CategoryEntity>
 {
 }

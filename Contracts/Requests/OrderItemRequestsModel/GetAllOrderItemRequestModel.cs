@@ -9,5 +9,5 @@ namespace Contracts.Requests.OrderItemRequestsModel;
 
 public record GetAllOrderItemRequestModel
 {
-    public IEnumerable<OrderItem> Items { get; init; } = Enumerable.Empty<OrderItem>();
+    public IEnumerable<OrderItemEntity> Items { get; init; } = Enumerable.Empty<OrderItemEntity>();
 }

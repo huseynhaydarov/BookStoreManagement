@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class OrderItemRepository : BaseRepository<OrderItem>, IOrderItemRepository
+    public class OrderItemRepository : BaseRepository<OrderItemEntity>, IOrderItemRepository
     {
         public OrderItemRepository(EFContext context) : base(context)
         {

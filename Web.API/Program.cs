@@ -1,9 +1,23 @@
+using Application.Auhtors.Commands;
+using Application.Auhtors.Queries;
+using Application.BankAccounts.Commands;
+using Application.BankAccounts.Queries;
 using Application.Books.Queries;
+using Application.Category.Commands;
+using Application.Category.Queries;
 using Application.Commands.Book;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
 using Application.Common.Services;
+using Application.Customer.Commands;
+using Application.Customer.Queries;
 using Application.Mappers;
+using Application.Order.Commands;
+using Application.Order.Queries;
+using Application.OrderItem.Commands;
+using Application.OrderItem.Queries;
+using Application.Publishers.Commands;
+using Application.Publishers.Queries;
 using Contracts.Validators.BookValidators;
 using Domain.Entities;
 using FluentValidation;
@@ -20,22 +34,56 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+//Authors
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateAuthorCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateAuthorCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetAuthorQuery).Assembly));
+
+//Accounts
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateBankAccountCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateBankAccountCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetBankAccountQuery).Assembly));
+
+//Books
 builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateBookCommandHandler).Assembly));
 builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateBookCommandHandler).Assembly));
 builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetBookQuery).Assembly));
 
+//Categories
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateCategoryCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetCategoryQuery).Assembly));
+
+//Customers
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateCustomerCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetCustomerQuery).Assembly));
+
+//Customers
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateOrderCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetOrderQuery).Assembly));
+
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateOrderItemCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdateOrderItemCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetOrderItemQuery).Assembly));
+
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreatePublisherCommand).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(UpdatePublisherCommandHandler).Assembly));
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetPublisherQuery).Assembly));
 //builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateBookRequestValidator>());
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseRepository<BookEntity>), typeof(BaseRepository<BookEntity>));
-builder.Services.AddScoped(typeof(IBaseRepository<Author>), typeof(BaseRepository<Author>));
-builder.Services.AddScoped(typeof(IBaseRepository<BankAccount>), typeof(BaseRepository<BankAccount>));
-builder.Services.AddScoped(typeof(IBaseRepository<Category>), typeof(BaseRepository<Category>));
-builder.Services.AddScoped(typeof(IBaseRepository<Customer>), typeof(BaseRepository<Customer>));
-builder.Services.AddScoped(typeof(IBaseRepository<Order>), typeof(BaseRepository<Order>));
-builder.Services.AddScoped(typeof(IBaseRepository<OrderItem>), typeof(BaseRepository<OrderItem>));
-builder.Services.AddScoped(typeof(IBaseRepository<Publisher>), typeof(BaseRepository<Publisher>));
+builder.Services.AddScoped(typeof(IBaseRepository<AuthorEntity>), typeof(BaseRepository<AuthorEntity>));
+builder.Services.AddScoped(typeof(IBaseRepository<BankAccountEntity>), typeof(BaseRepository<BankAccountEntity>));
+builder.Services.AddScoped(typeof(IBaseRepository<CategoryEntity>), typeof(BaseRepository<CategoryEntity>));
+builder.Services.AddScoped(typeof(IBaseRepository<CustomerEntity>), typeof(BaseRepository<CustomerEntity>));
+builder.Services.AddScoped(typeof(IBaseRepository<OrderEnitity>), typeof(BaseRepository<OrderEnitity>));
+builder.Services.AddScoped(typeof(IBaseRepository<OrderItemEntity>), typeof(BaseRepository<OrderItemEntity>));
+builder.Services.AddScoped(typeof(IBaseRepository<PublisherEntity>), typeof(BaseRepository<PublisherEntity>));
 
 
 

@@ -11,11 +11,11 @@ namespace Application.Common.Interfaces.Services;
 
 public interface IBookService
 {
-    Task<BookResponse?> GetAsync(int id, CancellationToken token = default);
+    Task<BankAccountResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<BookResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default);
 
-    Task<BookResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default);
+    Task<BankAccountResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default);
 
     Task UpdateAsync(int id, UpdateBookRequestModel request, CancellationToken token = default);
 

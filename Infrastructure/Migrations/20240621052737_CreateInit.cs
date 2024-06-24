@@ -7,13 +7,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CreateInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Author",
+                name: "AuthorEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -24,7 +24,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Author", x => x.Id);
+                    table.PrimaryKey("PK_AuthorEntity", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +114,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Book",
+                name: "BookEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -134,21 +134,21 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Book", x => x.Id);
+                    table.PrimaryKey("PK_BookEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Author_AuthorId",
+                        name: "FK_BookEntity_AuthorEntity_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "Author",
+                        principalTable: "AuthorEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_Category_CategoryId",
+                        name: "FK_BookEntity_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_Publisher_PublisherId",
+                        name: "FK_BookEntity_Publisher_PublisherId",
                         column: x => x.PublisherId,
                         principalTable: "Publisher",
                         principalColumn: "Id",
@@ -170,9 +170,9 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_OrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Book_BookId",
+                        name: "FK_OrderItem_BookEntity_BookId",
                         column: x => x.BookId,
-                        principalTable: "Book",
+                        principalTable: "BookEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -189,18 +189,18 @@ namespace Infrastructure.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_AuthorId",
-                table: "Book",
+                name: "IX_BookEntity_AuthorId",
+                table: "BookEntity",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_CategoryId",
-                table: "Book",
+                name: "IX_BookEntity_CategoryId",
+                table: "BookEntity",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_PublisherId",
-                table: "Book",
+                name: "IX_BookEntity_PublisherId",
+                table: "BookEntity",
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
@@ -229,13 +229,13 @@ namespace Infrastructure.Migrations
                 name: "OrderItem");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "BookEntity");
 
             migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Author");
+                name: "AuthorEntity");
 
             migrationBuilder.DropTable(
                 name: "Category");

@@ -16,14 +16,15 @@ public class GetBookQuery(int id) : IRequest<BookResponse>
     public int Id = id;
 }
 
-public class GetBookQueryHandler(IMapper mapper, IBookRepository bookRepository) : IRequestHandler<GetBookQuery, BookResponse>
+public class GetBookQueryHandler(IMapper mapper, IBookRepository bookRepository) : 
+    IRequestHandler<GetBookQuery, BookResponse>
 {
     private readonly IBookRepository _bookRepository = bookRepository;
     private readonly IMapper _mapper = mapper;
 
     public async Task<BookResponse> Handle(GetBookQuery request, CancellationToken cancellationToken)
     {
-        var book = await bookRepository.GetAsync(request.Id);
+        var book = await _bookRepository.GetAsync(request.Id);
 
         if (book is null)
         {

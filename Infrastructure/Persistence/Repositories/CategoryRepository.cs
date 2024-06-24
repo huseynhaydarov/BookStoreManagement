@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+public class CategoryRepository : BaseRepository<CategoryEntity>, ICategoryRepository
 {
     public CategoryRepository(EFContext context) : base(context)
     {

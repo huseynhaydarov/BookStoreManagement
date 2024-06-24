@@ -20,7 +20,7 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
 {
     public async Task<BankAccountResponse> CreateAsync(CreateBankAccountRequestModel request, CancellationToken token = default)
     {
-        var book = mapper.Map<BankAccount>(request);
+        var book = mapper.Map<BankAccountEntity>(request);
         var response = await accountRepository.CreateAsync(book, token);
         return mapper.Map<BankAccountResponse>(response);
     }
@@ -48,7 +48,7 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
 
         if (response is null)
         {
-            throw new NotFoundException(nameof(BankAccount), id);
+            throw new NotFoundException(nameof(BankAccountEntity), id);
         }
         return mapper.Map<BankAccountResponse?>(response);
     }

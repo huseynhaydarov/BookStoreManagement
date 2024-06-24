@@ -16,7 +16,6 @@ public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
     private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
 
-
     [HttpPost(ApiEndpoints.Book.Create)]
     public async Task<ActionResult<BookResponse>> Create([FromBody] CreateBookRequestsModel request, 
         CancellationToken token)

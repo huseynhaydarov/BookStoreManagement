@@ -20,7 +20,7 @@ namespace Application.Common.Services
         public async Task<OrderItemResponse> CreateAsync(CreateOrderItemRequestModel request,
             CancellationToken token = default)
         {
-            var orderItem = mapper.Map<OrderItem>(request);
+            var orderItem = mapper.Map<OrderItemEntity>(request);
             var response = await orderItemRepository.CreateAsync(orderItem, token);
             return mapper.Map<OrderItemResponse>(response);
         }
@@ -30,7 +30,7 @@ namespace Application.Common.Services
             var orderItem = await orderItemRepository.GetAsync(id, token);
             if (orderItem is null)
             {
-                throw new NotFoundException(nameof(OrderItem), id);
+                throw new NotFoundException(nameof(OrderItemEntity), id);
             }
 
             return await orderItemRepository.DeleteAsync(orderItem, token);
@@ -49,7 +49,7 @@ namespace Application.Common.Services
 
             if (response is null)
             {
-                throw new NotFoundException(nameof(OrderItem), id);
+                throw new NotFoundException(nameof(OrderItemEntity), id);
             }
 
             return mapper.Map<OrderItemResponse>(response);

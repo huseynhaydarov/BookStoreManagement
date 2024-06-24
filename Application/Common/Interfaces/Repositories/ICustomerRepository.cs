@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface ICustomerRepository : IBaseRepository<Customer>
+public interface ICustomerRepository : IBaseRepository<CustomerEntity>
 {
 }

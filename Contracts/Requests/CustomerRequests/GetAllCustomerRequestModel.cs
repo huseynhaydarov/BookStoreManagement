@@ -9,5 +9,5 @@ namespace Contracts.Requests.CustomerRequests;
 
 public record GetAllCustomerRequestModel
 {
-    public IEnumerable<Customer> Items { get; init; } = Enumerable.Empty<Customer>();
+    public IEnumerable<CustomerEntity> Items { get; init; } = Enumerable.Empty<CustomerEntity>();
 }

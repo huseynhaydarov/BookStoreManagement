@@ -1,6 +1,14 @@
-﻿using Application.Common.Interfaces.Services;
+﻿using Application.Books.Queries;
+using Application.Category.Commands;
+using Application.Category.Queries;
+using Application.Commands.Book;
+using Application.Common.Interfaces.Services;
+using AutoMapper;
+using Contracts.Requests.BookRequests;
 using Contracts.Requests.CategoryRequests;
 using Contracts.Requests.OrderRequests;
+using Contracts.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers;
@@ -8,41 +16,47 @@ namespace Web.API.Controllers;
 [ApiController]
 [Route("[controller]")]
 
-public class CategoryController(ICategoryService categoryService) : ControllerBase
+public class CategoryController(IMediator mediator, IMapper mapper) : ControllerBase
 {
+    private readonly IMediator _mediator = mediator;
+    private readonly IMapper _mapper = mapper;
+
     [HttpPost(ApiEndpoints.Category.Create)]
-    public async Task<IActionResult> Create([FromBody] CreateCategoryRequestModel request, CancellationToken token)
+    public async Task<ActionResult<CategoryResponse>> Create([FromBody] CreateCategoryRequestModel request,
+        CancellationToken token)
     {
-        var response = await categoryService.CreateAsync(request, token);
-        return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
+        var response = await _mediator.Send(_mapper.Map<CreateCategoryRequestModel, CreateCategoryCommand>(request), token);
+        return Ok(response);
     }
 
     [HttpGet(ApiEndpoints.Category.Get)]
-    public async Task<IActionResult> Get([FromRoute] int id, CancellationToken token)
+    public async Task<ActionResult<CategoryResponse>> Get([FromRoute] int id, CancellationToken token)
     {
-        var response = await categoryService.GetAsync(id, token);
+        var response = await _mediator.Send(new GetCategoryQuery(id));
         return Ok(response);
     }
 
-    [HttpGet(ApiEndpoints.Category.GetAll)]
-    public async Task<IActionResult> GetAll(CancellationToken token)
-    {
-        var response = await categoryService.GetAllAsync(token);
-        return Ok(response);
-    }
+    //[HttpGet(ApiEndpoints.Category.GetAll)]
+    //public async Task<IActionResult> GetAll(CancellationToken token)
+    //{
+    //    var response = await categoryService.GetAllAsync(token);
+    //    return Ok(response);
+    //}
 
     [HttpPut(ApiEndpoints.Category.Update)]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestModel request,
-    CancellationToken token)
+    public async Task<ActionResult<CategoryResponse>> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestModel request, CancellationToken token)
     {
-        await categoryService.UpdateAsync(id, request, token);
-        return Ok();
-    }
+        var command = _mapper.Map<UpdateCategoryCommand>(request);
+        command.Id = id;
 
-    [HttpDelete(ApiEndpoints.Category.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    {
-        var response = await categoryService.DeleteAsync(id, token);
+        var response = await _mediator.Send(command, token);
         return Ok(response);
     }
+
+    //    [HttpDelete(ApiEndpoints.Category.Delete)]
+    //    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    //    {
+    //        var response = await categoryService.DeleteAsync(id, token);
+    //        return Ok(response);
+    //    }
 }

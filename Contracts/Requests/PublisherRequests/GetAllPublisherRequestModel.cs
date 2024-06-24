@@ -9,5 +9,5 @@ namespace Contracts.Requests.PublisherRequests;
 
 public record GetAllPublisherRequestModel
 {
-    public IEnumerable<Publisher> Items { get; init; } = Enumerable.Empty<Publisher>();
+    public IEnumerable<PublisherEntity> Items { get; init; } = Enumerable.Empty<PublisherEntity>();
 }

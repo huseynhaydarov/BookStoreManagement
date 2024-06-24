@@ -19,7 +19,7 @@ namespace Application.Common.Services
         public async Task<OrderResponse> CreateAsync(CreateOrderRequestModel request,
             CancellationToken token = default)
         {
-            var order = mapper.Map<Order>(request);
+            var order = mapper.Map<OrderEnitity>(request);
             var response = await orderRepository.CreateAsync(order, token);
             return mapper.Map<OrderResponse>(response);
         }
@@ -47,7 +47,7 @@ namespace Application.Common.Services
 
             if (response is null)
             {
-                throw new NotFoundException(nameof(Order), id);
+                throw new NotFoundException(nameof(OrderEnitity), id);
             }
 
             return mapper.Map<OrderResponse>(response);

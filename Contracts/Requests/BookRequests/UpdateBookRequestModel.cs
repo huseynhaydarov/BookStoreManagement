@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Contracts.Requests.BookRequests;
 
-public class UpdateBookRequestModel
+public record UpdateBookRequestModel
 {
   
-    public string Title { get; init; }
-    public string Description { get; init; }
-    public decimal Price { get; init; }
-    public int PageSize { get; init; }
-    public int PublicationYear { get; init; }
-    public int StockQuantity { get; init; }
-    public string ISBN { get; init; }
-    public string ImagePath { get; init; }
-    public BookType Type { get; init; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public decimal Price { get; set; }
+    public int PageSize { get; set; }
+    public int PublicationYear { get; set; }
+    public int StockQuantity { get; set; }
+    public string ISBN { get; set; }
+    public string ImagePath { get; set; }
+    public BookType Type { get; set; }
 
-    public int AuthorId { get; init; }
-    public int PublisherId { get; init; }
-    public int CategoryId { get; init; }
+    public int AuthorId { get; set; }
+    public int PublisherId { get; set; }
+    public int CategoryId { get; set; }
 
 }

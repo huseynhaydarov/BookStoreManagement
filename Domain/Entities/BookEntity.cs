@@ -20,12 +20,12 @@ public class BookEntity : BaseEntity
     public string ImagePath { get; set; }
     public BookType Type { get; set; }
 
-    public Author Author { get; set; }
+    public AuthorEntity Author { get; set; }
     public int AuthorId { get; set; }
-    public Publisher Publisher { get; set; }
+    public PublisherEntity Publisher { get; set; }
     public int PublisherId { get; set; }
-    public Category Category { get; set; }
+    public CategoryEntity Category { get; set; }
     public int CategoryId { get; set; }
 
-    public virtual ICollection<OrderItem> Items { get; set; }
+    public virtual ICollection<OrderItemEntity> Items { get; set; }
 }

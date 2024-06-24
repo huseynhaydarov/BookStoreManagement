@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Repositories;
 
-public interface IBankAccountRepository : IBaseRepository<BankAccount>
+public interface IBankAccountRepository : IBaseRepository<BankAccountEntity>
 {
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.TablesConfiguration;
 
-public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItemEntity>
 {
-    public void Configure(EntityTypeBuilder<OrderItem> builder)
+    public void Configure(EntityTypeBuilder<OrderItemEntity> builder)
     {
         builder.HasKey(oi => oi.Id);
         builder.Property(oi => oi.Quantity).IsRequired();

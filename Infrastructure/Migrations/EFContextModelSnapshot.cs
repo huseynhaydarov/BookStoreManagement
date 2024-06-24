@@ -3,7 +3,6 @@ using System;
 using Infrastructure.Persistence.DataBases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,11 +11,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20240619200528_ChangedToBookEntity")]
-    partial class ChangedToBookEntity
+    partial class EFContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Author", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +45,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("AuthorEntity");
                 });
 
             modelBuilder.Entity("Domain.Entities.BankAccount", b =>
@@ -285,7 +282,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.BookEntity", b =>
                 {
-                    b.HasOne("Domain.Entities.Author", "Author")
+                    b.HasOne("Domain.Entities.AuthorEntity", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -340,7 +337,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Author", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorEntity", b =>
                 {
                     b.Navigation("Books");
                 });
