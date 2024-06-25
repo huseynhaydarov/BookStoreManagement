@@ -34,11 +34,17 @@ public class PublisherService(IPublisherRepository publisherRepository, IMapper 
         return await publisherRepository.DeleteAsync(publisher, token);
     }
 
-    public async Task<List<PublisherResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<PublisherResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
     {
-        var response = await publisherRepository.GetAllAsync(token);
+        var response = await publisherRepository.GetAllAsync(pageSize, pageNumber, token);
         return mapper.Map<List<PublisherResponse>>(response);
     }
+
+    //public async Task<List<PublisherResponse>> GetAllAsync(CancellationToken token = default)
+    //{
+    //    var response = await publisherRepository.GetAllAsync(token);
+    //    return mapper.Map<List<PublisherResponse>>(response);
+    //}
 
     public async Task<PublisherResponse?> GetAsync(int id, CancellationToken token = default)
     {

@@ -36,9 +36,9 @@ public class BankAccountService(IBankAccountRepository accountRepository, IMappe
         return await accountRepository.DeleteAsync(account, token);
     }
 
-    public async Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<BankAccountResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
     {
-        var response = await accountRepository.GetAllAsync(token);
+        var response = await accountRepository.GetAllAsync(pageSize, pageNumber, token);
         return mapper.Map<List<BankAccountResponse>>(response);
     }
 

@@ -35,10 +35,10 @@ namespace Application.Common.Services
             return await customerRepository.DeleteAsync(customer, token);
         }
 
-        public async Task<List<CustomerResponse>> GetAllAsync(CancellationToken token = default)
+        public async Task<List<CustomerResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
         {
 
-            var response = await customerRepository.GetAllAsync(token);
+            var response = await customerRepository.GetAllAsync(pageSize, pageNumber, token);
             return mapper.Map<List<CustomerResponse>>(response);
         }
 

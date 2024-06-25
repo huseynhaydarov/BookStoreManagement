@@ -12,7 +12,7 @@ public interface ICustomerService
 {
     Task<CustomerResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<CustomerResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<CustomerResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<CustomerResponse> CreateAsync(CreateCustomerRequestModel request, CancellationToken token = default);
 

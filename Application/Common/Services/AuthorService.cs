@@ -33,9 +33,9 @@ public class AuthorService(IAuthorRepository authorRepository, IMapper mapper) :
         return await authorRepository.DeleteAsync(author, token);
     }
 
-    public async Task<List<AuthorResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<AuthorResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
     {
-        var response = await authorRepository.GetAllAsync(token);
+        var response = await authorRepository.GetAllAsync(pageSize, pageNumber, token);
         return mapper.Map<List<AuthorResponse>>(response);
     }
 

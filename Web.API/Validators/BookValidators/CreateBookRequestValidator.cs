@@ -12,7 +12,6 @@ public class CreateBookRequestValidator : AbstractValidator<CreateBookRequestsMo
 {
     public CreateBookRequestValidator()
     {
-       
         RuleFor(b => b.Title)
             .MaximumLength(70)
             .NotEmpty()
@@ -25,10 +24,10 @@ public class CreateBookRequestValidator : AbstractValidator<CreateBookRequestsMo
             .NotNull();
 
         RuleFor(b => b.Price)
-            .GreaterThan(0)
-            .WithMessage("Price must be greater than 0.")
-            .ScalePrecision(2, 18)
-            .WithMessage("Price must not have more than 2 decimal places");
+             .GreaterThan(0)
+             .WithMessage("Price must be greater than 0.")
+             .ScalePrecision(2, 18)
+             .WithMessage("Price must not have more than 2 decimal places");
 
         RuleFor(b => b.PageSize)
             .GreaterThan(0).WithMessage("Page size must be greater than 0");
@@ -36,10 +35,6 @@ public class CreateBookRequestValidator : AbstractValidator<CreateBookRequestsMo
         RuleFor(b => b.PublicationYear)
             .InclusiveBetween(1800, DateTime.Now.Year)
             .WithMessage($"Year must be between 1800 and {DateTime.Now.Year}");
-
-        RuleFor(b => b.StockQuantity)
-            .GreaterThan(0)
-            .WithMessage("Stock quantity must be greater than 0.");
 
         RuleFor(x => x.ISBN)
             .NotEmpty()

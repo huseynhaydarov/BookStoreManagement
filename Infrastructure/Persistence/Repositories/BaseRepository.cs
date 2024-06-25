@@ -35,7 +35,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return await _context.SaveChangesAsync(token) > 0;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken token = default)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(int pageNumber, int pageSize, CancellationToken token = default)
     {
         return await _dbSet.ToListAsync(token);
     }

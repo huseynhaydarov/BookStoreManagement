@@ -18,4 +18,5 @@ public class OrderEnitity : BaseEntity
     public int CustomerId { get; set; }  
 
     public virtual ICollection<OrderItemEntity> Items { get; set; }
+
 }

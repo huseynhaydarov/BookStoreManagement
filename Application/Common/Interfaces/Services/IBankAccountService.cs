@@ -14,7 +14,7 @@ public interface IBankAccountService
 {
     Task<BankAccountResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<BankAccountResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<BankAccountResponse> CreateAsync(CreateBankAccountRequestModel request, CancellationToken token = default);
 

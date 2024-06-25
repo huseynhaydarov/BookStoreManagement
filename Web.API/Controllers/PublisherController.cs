@@ -1,10 +1,11 @@
-﻿using Application.Authors.Commands;
-using Application.Books.Commands;
+﻿using Application.Books.Commands;
 using Application.Books.Queries;
 using Application.Commands.Book;
+using Application.Publishers.Commands;
+using Application.Publishers.Queries;
 using AutoMapper;
 using Contracts.Requests.BookRequests;
-using Contracts.Requests.CustomerRequests;
+using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,23 +14,23 @@ namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
+public class PublisherController(IMediator mediator, IMapper mapper) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
 
-    [HttpPost(ApiEndpoints.Book.Create)]
-    public async Task<ActionResult<BookResponse>> Create([FromBody] CreateBookRequestsModel request, 
+    [HttpPost(ApiEndpoints.Publisher.Create)]
+    public async Task<ActionResult<PublisherResponse>> Create([FromBody] CreatePublisherRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreateBookRequestsModel, CreateBookCommand>(request), token);
+        var response = await _mediator.Send(_mapper.Map<CreatePublisherRequestModel, CreatePublisherCommand>(request), token);
         return Ok(response);
     }
 
-    [HttpGet(ApiEndpoints.Book.Get)]
-    public async Task<ActionResult<BookResponse>> Get([FromRoute] int id, CancellationToken token)
+    [HttpGet(ApiEndpoints.Publisher.Get)]
+    public async Task<ActionResult<PublisherResponse>> Get([FromRoute] int id, CancellationToken token)
     {
-        var response = await _mediator.Send(new GetBookQuery(id));
+        var response = await _mediator.Send(new GetPublisherQuery(id));
         return Ok(response);
     }
 
@@ -40,20 +41,20 @@ public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
     //    return Ok(response);
     //}
 
-    [HttpPut(ApiEndpoints.Book.Update)]
-    public async Task<ActionResult<BookResponse>> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request, CancellationToken token)
+    [HttpPut(ApiEndpoints.Publisher.Update)]
+    public async Task<ActionResult<PublisherResponse>> Update([FromRoute] int id, [FromBody] UpdatePublisherRequestModel request, CancellationToken token)
     {
-        var command = _mapper.Map<UpdateBookCommand>(request);
+        var command = _mapper.Map<UpdatePublisherCommand>(request);
         command.Id = id;
 
         var response = await _mediator.Send(command, token);
         return Ok(response);
     }
 
-    [HttpDelete(ApiEndpoints.Book.Delete)]
+    [HttpDelete(ApiEndpoints.Publisher.Delete)]
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
-        var command = new DeleteBookCommand { Id = id };
+        var command = new DeletePublisherCommand { Id = id };
         bool result = await _mediator.Send(command, token);
 
         if (result)

@@ -34,9 +34,9 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         return await categoryRepository.DeleteAsync(category, token);
     }
 
-    public async Task<List<CategoryResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<CategoryResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
     {
-        var response = await categoryRepository.GetAllAsync(token);
+        var response = await categoryRepository.GetAllAsync(pageSize, pageNumber, token);
         return mapper.Map<List<CategoryResponse>>(response);
     }
 
