@@ -1,4 +1,5 @@
-﻿using Application.Books.Queries;
+﻿using Application.Books.Commands;
+using Application.Books.Queries;
 using Application.Commands.Book;
 using Application.Common.Interfaces.Services;
 using Application.Customer.Commands;
@@ -51,10 +52,19 @@ public class CustomerController(IMediator mediator, IMapper mapper) : Controller
         return Ok(response);
     }
 
-    //[HttpDelete(ApiEndpoints.Customer.Delete)]
-    //public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    //{
-    //    var response = await customerService.DeleteAsync(id, token);
-    //    return Ok(response);
-    //}
+    [HttpDelete(ApiEndpoints.Customer.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    {
+        var command = new DeleteCustomerCommand { Id = id };
+        bool result = await _mediator.Send(command, token);
+
+        if (result)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
 }

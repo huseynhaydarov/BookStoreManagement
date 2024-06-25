@@ -13,7 +13,7 @@ namespace Application.Common.Interfaces.Services
     {
         Task<CategoryResponse?> GetAsync(int id, CancellationToken token = default);
 
-        Task<List<CategoryResponse>> GetAllAsync(CancellationToken token = default);
+        Task<List<CategoryResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
         Task<CategoryResponse> CreateAsync(CreateCategoryRequestModel request, CancellationToken token = default);
 

@@ -1,4 +1,6 @@
-﻿using Application.Books.Queries;
+﻿using Application.Authors.Commands;
+using Application.Books.Commands;
+using Application.Books.Queries;
 using Application.Category.Commands;
 using Application.Category.Queries;
 using Application.Commands.Book;
@@ -53,10 +55,19 @@ public class CategoryController(IMediator mediator, IMapper mapper) : Controller
         return Ok(response);
     }
 
-    //    [HttpDelete(ApiEndpoints.Category.Delete)]
-    //    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    //    {
-    //        var response = await categoryService.DeleteAsync(id, token);
-    //        return Ok(response);
-    //    }
+    [HttpDelete(ApiEndpoints.Category.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    {
+        var command = new DeleteBookCommand { Id = id };
+        bool result = await _mediator.Send(command, token);
+
+        if (result)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
 }

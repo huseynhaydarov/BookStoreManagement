@@ -13,7 +13,7 @@ public interface IBookService
 {
     Task<BankAccountResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<BankAccountResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<BankAccountResponse> CreateAsync(CreateBookRequestsModel request, CancellationToken token = default);
 

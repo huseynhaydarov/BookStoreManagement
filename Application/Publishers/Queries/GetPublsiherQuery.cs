@@ -16,7 +16,7 @@ public class GetPublisherQuery(int id) : IRequest<PublisherResponse>
     public int Id = id;
 }
 
-public class GetPublsiherQueryHandler(IMapper mapper, IPublisherRepository publisherRepository) :
+public class GetPublisherQueryHandler(IMapper mapper, IPublisherRepository publisherRepository) :
     IRequestHandler<GetPublisherQuery, PublisherResponse>
 {
     private readonly IPublisherRepository _publisherRepository = publisherRepository;

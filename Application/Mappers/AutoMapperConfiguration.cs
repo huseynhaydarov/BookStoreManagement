@@ -1,7 +1,9 @@
 ﻿using Application.Auhtors.Commands;
 using Application.Auhtors.Queries;
+using Application.Authors.Commands;
 using Application.BankAccounts.Commands;
 using Application.BankAccounts.Queries;
+using Application.Books.Commands;
 using Application.Books.Queries;
 using Application.Category.Commands;
 using Application.Category.Queries;
@@ -41,7 +43,11 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateAuthorRequestModel, UpdateAuthorCommand>();
         CreateMap<UpdateAuthorCommand, AuthorEntity>();
         CreateMap<GetAuthorQuery, AuthorEntity>();
-
+        CreateMap<GetAuthorQuery, AuthorResponse>();
+        CreateMap<GetAuthorsQuery, AuthorResponse>();
+        CreateMap<DeleteAuthorCommand, AuthorEntity>();
+        CreateMap<GetAuthorsRequest, GetAuthorsQuery>();
+        CreateMap<AuthorResponse, GetAllAuthorRequestModel>();
 
         CreateMap<CreateBankAccountRequestModel, CreateBankAccountCommand>();
         CreateMap<CreateBankAccountRequestModel, BankAccountEntity>();
@@ -50,6 +56,11 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateBankAccountRequestModel, UpdateBankAccountCommand>();
         CreateMap<UpdateBankAccountCommand, BankAccountEntity>();
         CreateMap<GetBankAccountQuery, BankAccountEntity>();
+        CreateMap<GetBankAccountQuery, BankAccountResponse>();
+        //CreateMap<GetBankAccountsQuery, AuthorResponse>();
+        CreateMap<DeleteBankAccountCommand, BankAccountEntity>();
+        //CreateMap<GetBankAccountsRequest, GetBankAccountsQuery>();
+        CreateMap<BankAccountResponse, GetAllBankAccountRequestModel>();
 
         CreateMap<CreateBookRequestsModel, CreateBookCommand>();
         CreateMap<CreateBookRequestsModel, BookEntity>();
@@ -58,6 +69,12 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateBookRequestModel, UpdateBookCommand>();
         CreateMap<UpdateBookCommand, BookEntity>();
         CreateMap<GetBookQuery, BookEntity>();
+        CreateMap<GetBookQuery, BookResponse>();
+        //CreateMap<GetBooksQuery, BookResponse>();
+        CreateMap<DeleteBookCommand, BookEntity>();
+        //CreateMap<GetBooksRequest, GetBooksQuery>();
+        CreateMap<BookResponse, GetAllBookRequestModel>();
+
 
         CreateMap<CreateCategoryRequestModel, CreateCategoryCommand>();
         CreateMap<CreateCategoryRequestModel, CategoryEntity>();
@@ -66,6 +83,12 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateCategoryRequestModel, UpdateCategoryCommand>();
         CreateMap<UpdateCategoryCommand, CategoryEntity>();
         CreateMap<GetCategoryQuery, CategoryEntity>();
+        CreateMap<GetCategoryQuery, CategoryResponse>();
+        //CreateMap<GetCategoriesQuery, CategoryResponse>();
+        CreateMap<DeleteCategoryCommand, CategoryEntity>();
+        //CreateMap<GetCategoriesRequest, GetCategoriesQuery>();
+        CreateMap<CategoryResponse, GetAllCategoryRequestModel>();
+
 
         CreateMap<CreateCustomerRequestModel, CreateCustomerCommand>();
         CreateMap<CreateCustomerRequestModel, CustomerEntity>();
@@ -74,14 +97,26 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateCustomerRequestModel, UpdateCustomerCommand>();
         CreateMap<UpdateCustomerCommand, CustomerEntity>();
         CreateMap<GetCustomerQuery, CustomerEntity>();
+        CreateMap<GetCustomerQuery, CustomerResponse>();
+        //CreateMap<GetCustomersQuery, CustomerResponse>();
+        CreateMap<DeleteCustomerCommand, CustomerEntity>();
+        //CreateMap<GetCustomersRequest, GetCustomersQuery>();
+        CreateMap<CustomerResponse, GetAllCustomerRequestModel>();
+
 
         CreateMap<CreateOrderRequestModel, CreateOrderCommand>();
         CreateMap<CreateOrderRequestModel, OrderEnitity>();
         CreateMap<CreateOrderCommand, OrderEnitity>();
         CreateMap<OrderEnitity, OrderResponse>();
-        CreateMap<UpdateOrderItemRequestModel, UpdateOrderCommand>();
+        CreateMap<UpdateOrderRequestModel, UpdateOrderCommand>();
         CreateMap<UpdateOrderCommand, OrderEnitity>();
         CreateMap<GetOrderQuery, OrderEnitity>();
+        CreateMap<GetOrderQuery, OrderResponse>();
+        //CreateMap<GetOrdersQuery, OrderResponse>();
+        CreateMap<DeleteOrderCommand, OrderEnitity>();
+        //CreateMap<GetOrdersRequest, GetOrdersQuery>();
+        CreateMap<OrderResponse, GetAllOrderRequestModel>();
+
 
         CreateMap<CreateOrderItemRequestModel, CreateOrderItemCommand>();
         CreateMap<CreateOrderItemRequestModel, OrderItemEntity>();
@@ -90,14 +125,27 @@ public class AutoMapperConfiguration : Profile
         CreateMap<UpdateOrderItemRequestModel, UpdateOrderItemCommand>();
         CreateMap<UpdateOrderItemCommand, OrderItemEntity>();
         CreateMap<GetOrderItemQuery, OrderItemEntity>();
+        CreateMap<GetOrderItemQuery, OrderItemResponse>();
+        //CreateMap<GetOrderItemsQuery, OrderItemResponse>();
+        CreateMap<DeleteOrderItemCommand, OrderItemEntity>();
+        //CreateMap<GetOrderItemsRequest, GetOrderItemsQuery>();
+        CreateMap<OrderItemResponse, GetAllOrderItemRequestModel>();
 
 
         CreateMap<CreatePublisherRequestModel, CreatePublisherCommand>();
         CreateMap<CreatePublisherRequestModel, PublisherEntity>();
         CreateMap<CreatePublisherCommand, PublisherEntity>();
-        CreateMap<PublisherEntity, PublisherEntity>();
-        CreateMap<UpdateOrderRequestModel, PublisherEntity>();
+        CreateMap<PublisherEntity, PublisherResponse>();
+        CreateMap<UpdatePublisherRequestModel, UpdatePublisherCommand>();
         CreateMap<UpdatePublisherCommand, PublisherEntity>();
         CreateMap<GetPublisherQuery, PublisherEntity>();
+        CreateMap<GetPublisherQuery, PublisherResponse>();
+        //CreateMap<GetPublishersQuery, PublisherResponse>();
+        CreateMap<DeletePublisherCommand, PublisherEntity>();
+        //CreateMap<GetPublishersRequest, GetPublishersQuery>();
+        CreateMap<PublisherResponse, GetAllPublisherRequestModel>();
+
+
+
     }
 }

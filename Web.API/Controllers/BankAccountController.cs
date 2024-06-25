@@ -1,4 +1,5 @@
-﻿using Application.BankAccounts.Commands;
+﻿using Application.Authors.Commands;
+using Application.BankAccounts.Commands;
 using Application.BankAccounts.Queries;
 using Application.Books.Queries;
 using Application.Commands.Book;
@@ -48,11 +49,19 @@ public class BankAccountController(IMediator mediator, IMapper mapper) : Control
         return Ok(response);
     }
 
-    //    [HttpDelete(ApiEndpoints.BankAccount.Delete)]
-    //    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    //    {
-    //        var response = await accountService.DeleteAsync(id, token);
-    //        return Ok(response);
-    //    }
-    //}
+    [HttpDelete(ApiEndpoints.BankAccount.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    {
+        var command = new DeleteBankAccountCommand { Id = id };
+        bool result = await _mediator.Send(command, token);
+
+        if (result)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
 }

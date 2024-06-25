@@ -13,7 +13,7 @@ public interface IAuthorService
 {
     Task<AuthorResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<AuthorResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<AuthorResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<AuthorResponse> CreateAsync(CreateAuthorRequestModel request, CancellationToken token = default);
 

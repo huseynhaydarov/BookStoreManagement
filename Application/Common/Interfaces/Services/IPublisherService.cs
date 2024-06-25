@@ -13,7 +13,7 @@ public interface IPublisherService
 {
     Task<PublisherResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<PublisherResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<PublisherResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<PublisherResponse> CreateAsync(CreatePublisherRequestModel request, CancellationToken token = default);
 

@@ -1,8 +1,10 @@
-﻿using Application.Books.Queries;
+﻿using Application.Books.Commands;
+using Application.Books.Queries;
 using Application.Commands.Book;
 using Application.Common.Interfaces.Services;
 using Application.Order.Commands;
 using Application.Order.Queries;
+using Application.Publishers.Commands;
 using AutoMapper;
 using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderRequests;
@@ -49,10 +51,19 @@ public class OrderController(IMediator mediator, IMapper mapper) : ControllerBas
         return Ok(response);
     }
 
-    //[HttpDelete(ApiEndpoints.Order.Delete)]
-    //public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
-    //{
-    //    var response = await orderService.DeleteAsync(id, token);
-    //    return Ok(response);
-    //}
+    [HttpDelete(ApiEndpoints.Order.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
+    {
+        var command = new DeleteOrderCommand { Id = id };
+        bool result = await _mediator.Send(command, token);
+
+        if (result)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
 }

@@ -36,10 +36,10 @@ namespace Application.Common.Services
             return await orderItemRepository.DeleteAsync(orderItem, token);
         }
 
-        public async Task<List<OrderItemResponse>> GetAllAsync(CancellationToken token = default)
+        public async Task<List<OrderItemResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
         {
 
-            var response = await orderItemRepository.GetAllAsync(token);
+            var response = await orderItemRepository.GetAllAsync(pageSize, pageNumber, token);
             return mapper.Map<List<OrderItemResponse>>(response);
         }
 

@@ -12,7 +12,7 @@ public interface IOrderItemService
 {
     Task<OrderItemResponse?> GetAsync(int id, CancellationToken token = default);
 
-    Task<List<OrderItemResponse>> GetAllAsync(CancellationToken token = default);
+    Task<List<OrderItemResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default);
 
     Task<OrderItemResponse> CreateAsync(CreateOrderItemRequestModel request, CancellationToken token = default);
 

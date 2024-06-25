@@ -35,9 +35,9 @@ public class BookService(IBookRepository bookRepository, IMapper mapper) : IBook
         return await bookRepository.DeleteAsync(book, token);
     }
 
-    public async Task<List<BankAccountResponse>> GetAllAsync(CancellationToken token = default)
+    public async Task<List<BankAccountResponse>> GetAllAsync(int pageSize, int pageNumber, CancellationToken token = default)
     {
-        var response = await bookRepository.GetAllAsync(token);
+        var response = await bookRepository.GetAllAsync(pageSize, pageNumber, token);
         return mapper.Map<List<BankAccountResponse>>(response);
     }
 
