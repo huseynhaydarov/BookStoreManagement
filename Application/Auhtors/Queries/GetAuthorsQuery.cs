@@ -24,9 +24,5 @@ public class GetAuthorsQueryHandler(IMapper mapper,IAuthorRepository authorRepos
     {
         var authors = await _authorRepository.GetAllAsync(request.PageNumber, request.PageSize, cancellationToken);
         return mapper.Map<List<AuthorResponse>>(authors);
-
-        //var response = await authorRepository.GetAllAsync(token);
-        //return mapper.Map<List<AuthorResponse>>(response);
-
     }
 }
