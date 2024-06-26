@@ -30,7 +30,15 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, A
     public async Task<AuthorResponse> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
     {
         var entity = _mapper.Map<AuthorEntity>(request);
+
+        // Ensure DateOfBirth is converted to UTC if it's unspecified
+        if (entity.DateOfBirth.Kind == DateTimeKind.Unspecified)
+        {
+            entity.DateOfBirth = DateTime.SpecifyKind(entity.DateOfBirth, DateTimeKind.Utc);
+        }
+
         entity = await _authorRepository.CreateAsync(entity, cancellationToken);
         return _mapper.Map<AuthorResponse>(entity);
     }
+
 }

@@ -25,7 +25,10 @@ using Domain.Entities;
 using FluentValidation.AspNetCore;
 using Infrastructure.Persistence.DataBases;
 using Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using Web.API.Validators.AuthorValidators;
 using Web.API.Validators.BankAccountValidators;
@@ -37,6 +40,30 @@ using Web.API.Validators.OrderValidators;
 using Web.API.Validators.PublisherValidators;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<EFContext>()
+    .AddApiEndpoints();
+
+builder.Services.AddAuthentication()
+    .AddBearerToken(IdentityConstants.BearerScheme);
+
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 // Add services to the container.
 
@@ -157,6 +184,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.MapGroup("/Account").MapIdentityApi<IdentityUser>();
 
 app.MapControllers();
 
