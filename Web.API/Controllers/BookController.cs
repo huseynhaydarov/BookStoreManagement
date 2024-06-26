@@ -7,12 +7,14 @@ using Contracts.Requests.BookRequests;
 using Contracts.Requests.CustomerRequests;
 using Contracts.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;

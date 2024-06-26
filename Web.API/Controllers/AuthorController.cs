@@ -11,6 +11,7 @@ using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
@@ -18,7 +19,7 @@ namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-
+[Authorize]
 public class AuthorController(IMediator mediator, IMapper mapper) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
