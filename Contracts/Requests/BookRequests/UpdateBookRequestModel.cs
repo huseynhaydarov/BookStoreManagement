@@ -1,16 +1,9 @@
 ﻿using Domain.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Contracts.Requests.BookRequests;
 
 public record UpdateBookRequestModel
 {
-  
     public string Title { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
@@ -24,5 +17,4 @@ public record UpdateBookRequestModel
     public int AuthorId { get; set; }
     public int PublisherId { get; set; }
     public int CategoryId { get; set; }
-
 }

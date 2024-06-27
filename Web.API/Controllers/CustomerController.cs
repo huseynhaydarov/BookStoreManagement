@@ -1,11 +1,6 @@
-﻿using Application.Books.Commands;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
-using Application.Customer.Commands;
+﻿using Application.Customer.Commands;
 using Application.Customer.Queries;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.CustomerRequests;
 using Contracts.Responses;
 using MediatR;
@@ -17,14 +12,15 @@ namespace Web.API.Controllers;
 [Route("[controller]")]
 public class CustomerController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Customer.Create)]
     public async Task<ActionResult<CustomerResponse>> Create([FromBody] CreateCustomerRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreateCustomerRequestModel, CreateCustomerCommand>(request), token);
+        var response = await _mediator.Send(_mapper.Map<CreateCustomerRequestModel, CreateCustomerCommand>(request),
+            token);
         return Ok(response);
     }
 
@@ -43,7 +39,8 @@ public class CustomerController(IMediator mediator, IMapper mapper) : Controller
     //}
 
     [HttpPut(ApiEndpoints.Customer.Update)]
-    public async Task<ActionResult<CustomerResponse>> Update([FromRoute] int id, [FromBody] UpdateCustomerRequestModel request, CancellationToken token)
+    public async Task<ActionResult<CustomerResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateCustomerRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateCustomerCommand>(request);
         command.Id = id;
@@ -56,15 +53,10 @@ public class CustomerController(IMediator mediator, IMapper mapper) : Controller
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteCustomerCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

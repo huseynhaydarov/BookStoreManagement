@@ -1,15 +1,9 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using AutoMapper;
-using Contracts.Requests.OrderRequests;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Publishers.Commands;
 

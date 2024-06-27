@@ -1,15 +1,9 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using AutoMapper;
 using Contracts.Requests.BankAccountRequests;
-using Contracts.Requests.BookRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.BankAccounts.Commands;
 
@@ -17,10 +11,11 @@ public record UpdateBankAccountCommand : UpdateBankAccountRequestModel, IRequest
 {
     public int Id { get; set; }
 }
+
 public class UpdateBankAccountCommandHandler : IRequestHandler<UpdateBankAccountCommand, BankAccountResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IBankAccountRepository _accountRepository;
+    private readonly IMapper _mapper;
 
     public UpdateBankAccountCommandHandler(IMapper mapper, IBankAccountRepository accountRepository)
     {
@@ -32,10 +27,7 @@ public class UpdateBankAccountCommandHandler : IRequestHandler<UpdateBankAccount
     {
         var account = await _accountRepository.GetAsync(request.Id, cancellationToken);
 
-        if (account is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (account is null) throw new Exception($"Not found entity with the following id: {request.Id}");
 
         _mapper.Map(request, account);
         account = await _accountRepository.UpdateAsync(account);

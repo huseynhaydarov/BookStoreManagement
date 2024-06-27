@@ -1,5 +1,4 @@
 ﻿using Contracts.Requests.AuthorRequests;
-using Contracts.Validators.BookValidators;
 using FluentValidation;
 
 namespace Web.API.Validators.AuthorValidators;
@@ -8,7 +7,6 @@ public class CreateAuthorRequestValidator : AbstractValidator<CreateAuthorReques
 {
     public CreateAuthorRequestValidator()
     {
-
         RuleFor(b => b.FullName)
             .MaximumLength(70)
             .NotEmpty()
@@ -20,8 +18,7 @@ public class CreateAuthorRequestValidator : AbstractValidator<CreateAuthorReques
             .WithMessage("Date of birth must be in the past.");
 
         RuleFor(a => a.Biography)
-          .MaximumLength(1000)
-          .WithMessage("Biography must not exceed 1000 characters.");
-
+            .MaximumLength(1000)
+            .WithMessage("Biography must not exceed 1000 characters.");
     }
 }

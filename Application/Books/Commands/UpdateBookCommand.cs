@@ -10,11 +10,12 @@ namespace Application.Commands.Book;
 public record UpdateBookCommand : UpdateBookRequestModel, IRequest<BookResponse>
 {
     public int Id { get; set; }
-} 
+}
+
 public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IBookRepository _bookRepository;
+    private readonly IMapper _mapper;
 
     public UpdateBookCommandHandler(IMapper mapper, IBookRepository bookRepository)
     {
@@ -26,10 +27,7 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookR
     {
         var book = await _bookRepository.GetAsync(request.Id, cancellationToken);
 
-        if (book is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (book is null) throw new Exception($"Not found entity with the following id: {request.Id}");
 
         _mapper.Map(request, book);
         book = await _bookRepository.UpdateAsync(book);

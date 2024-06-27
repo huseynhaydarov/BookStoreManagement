@@ -4,11 +4,6 @@ using Contracts.Requests.AuthorRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Auhtors.Commands;
 
@@ -18,8 +13,8 @@ public record CreateAuthorCommand : CreateAuthorRequestModel, IRequest<AuthorRes
 
 public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, AuthorResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IAuthorRepository _authorRepository;
+    private readonly IMapper _mapper;
 
     public CreateAuthorCommandHandler(IMapper mapper, IAuthorRepository authorRepository)
     {
@@ -33,12 +28,9 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, A
 
         // Ensure DateOfBirth is converted to UTC if it's unspecified
         if (entity.DateOfBirth.Kind == DateTimeKind.Unspecified)
-        {
             entity.DateOfBirth = DateTime.SpecifyKind(entity.DateOfBirth, DateTimeKind.Utc);
-        }
 
         entity = await _authorRepository.CreateAsync(entity, cancellationToken);
         return _mapper.Map<AuthorResponse>(entity);
     }
-
 }

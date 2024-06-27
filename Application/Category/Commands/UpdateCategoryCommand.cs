@@ -1,16 +1,9 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using AutoMapper;
-using Contracts.Requests.BankAccountRequests;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.CategoryRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Category.Commands;
 
@@ -18,10 +11,11 @@ public record UpdateCategoryCommand : UpdateCategoryRequestModel, IRequest<Categ
 {
     public int Id { get; set; }
 }
+
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {
-    private readonly IMapper _mapper;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IMapper _mapper;
 
     public UpdateCategoryCommandHandler(IMapper mapper, ICategoryRepository categoryRepository)
     {
@@ -33,10 +27,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
     {
         var category = await _categoryRepository.GetAsync(request.Id, cancellationToken);
 
-        if (category is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (category is null) throw new Exception($"Not found entity with the following id: {request.Id}");
 
         _mapper.Map(request, category);
         category = await _categoryRepository.UpdateAsync(category);

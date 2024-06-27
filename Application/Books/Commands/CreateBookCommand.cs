@@ -14,8 +14,8 @@ public record CreateBookCommand : CreateBookRequestsModel, IRequest<BookResponse
 public class CreateBookCommandHandler(IMapper mapper, IBookRepository bookRepository)
     : IRequestHandler<CreateBookCommand, BookResponse>
 {
-    private readonly IMapper _mapper = mapper;
     private readonly IBookRepository _bookRepository = bookRepository;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<BookResponse> Handle(CreateBookCommand request, CancellationToken cancellationToken)
     {

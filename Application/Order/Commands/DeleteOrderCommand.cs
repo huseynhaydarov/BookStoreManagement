@@ -2,11 +2,6 @@
 using Application.Exceptions;
 using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Order.Commands;
 
@@ -14,6 +9,7 @@ public record DeleteOrderCommand : IRequest<bool>
 {
     public int Id { get; set; }
 }
+
 public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, bool>
 {
     private readonly IMapper _mapper;
@@ -29,10 +25,7 @@ public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, boo
     {
         var order = await _orderRepository.GetAsync(request.Id, cancellationToken);
 
-        if (order is null)
-        {
-            throw new NotFoundException(nameof(order), request.Id);
-        }
+        if (order is null) throw new NotFoundException(nameof(order), request.Id);
 
         await _orderRepository.DeleteAsync(order, cancellationToken);
         return true;

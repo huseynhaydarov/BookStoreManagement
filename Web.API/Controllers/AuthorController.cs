@@ -1,29 +1,21 @@
 ﻿using Application.Auhtors.Commands;
 using Application.Auhtors.Queries;
 using Application.Authors.Commands;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
-using Application.Common.Services;
 using AutoMapper;
 using Contracts.Requests.AuthorRequests;
-using Contracts.Requests.BookRequests;
-using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+//[Authorize]
 public class AuthorController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Author.Create)]
     public async Task<ActionResult<AuthorResponse>> Create([FromBody] CreateAuthorRequestModel request,
@@ -42,19 +34,19 @@ public class AuthorController(IMediator mediator, IMapper mapper) : ControllerBa
     }
 
     [HttpGet(ApiEndpoints.Author.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery]GetAuthorsRequest request, CancellationToken token)
+    public async Task<ActionResult<List<AuthorResponse>>> GetAll([FromQuery] GetAuthorsRequest request, CancellationToken token)
     {
         var command = mapper.Map<GetAuthorsQuery>(request);
 
         var response = await mediator.Send(command, token);
 
-        var result = mapper.Map<List<GetAllAuthorRequestModel>>(response);
-        return Ok(result);  
+        return Ok(response);
     }
 
 
     [HttpPut(ApiEndpoints.Author.Update)]
-    public async Task<ActionResult<AuthorResponse>> Update([FromRoute] int id, [FromBody] UpdateAuthorRequestModel request, CancellationToken token)
+    public async Task<ActionResult<AuthorResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateAuthorRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateAuthorCommand>(request);
         command.Id = id;
@@ -67,16 +59,10 @@ public class AuthorController(IMediator mediator, IMapper mapper) : ControllerBa
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteAuthorCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }
-

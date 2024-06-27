@@ -1,13 +1,8 @@
 ﻿using Application.Common.Interfaces.Repositories;
-using Application.Exceptions;
+using Contracts.Pagination;
 using Domain.Abstract;
 using Infrastructure.Persistence.DataBases;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories;
 
@@ -35,9 +30,18 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return await _context.SaveChangesAsync(token) > 0;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync(int pageNumber, int pageSize, CancellationToken token = default)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(PagingParameters request, CancellationToken token = default)
     {
-        return await _dbSet.ToListAsync(token);
+        IQueryable<TEntity> entities = _dbSet;
+
+        if (request.OrderByDescending)
+        {
+            entities = entities.OrderByDescending(e => e.Id);
+        }
+
+        entities = entities.Skip((request.Page - 1) * request.PageSize).Take(request.PageSize);
+
+        return await entities.ToListAsync(token);
     }
 
     public async Task<TEntity> GetAsync(int id, CancellationToken token = default)

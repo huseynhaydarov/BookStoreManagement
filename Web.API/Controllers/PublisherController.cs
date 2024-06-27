@@ -1,10 +1,6 @@
-﻿using Application.Books.Commands;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Publishers.Commands;
+﻿using Application.Publishers.Commands;
 using Application.Publishers.Queries;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using MediatR;
@@ -16,14 +12,15 @@ namespace Web.API.Controllers;
 [Route("[controller]")]
 public class PublisherController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Publisher.Create)]
     public async Task<ActionResult<PublisherResponse>> Create([FromBody] CreatePublisherRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreatePublisherRequestModel, CreatePublisherCommand>(request), token);
+        var response = await _mediator.Send(_mapper.Map<CreatePublisherRequestModel, CreatePublisherCommand>(request),
+            token);
         return Ok(response);
     }
 
@@ -42,7 +39,8 @@ public class PublisherController(IMediator mediator, IMapper mapper) : Controlle
     //}
 
     [HttpPut(ApiEndpoints.Publisher.Update)]
-    public async Task<ActionResult<PublisherResponse>> Update([FromRoute] int id, [FromBody] UpdatePublisherRequestModel request, CancellationToken token)
+    public async Task<ActionResult<PublisherResponse>> Update([FromRoute] int id,
+        [FromBody] UpdatePublisherRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdatePublisherCommand>(request);
         command.Id = id;
@@ -55,15 +53,10 @@ public class PublisherController(IMediator mediator, IMapper mapper) : Controlle
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeletePublisherCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

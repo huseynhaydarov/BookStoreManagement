@@ -3,11 +3,6 @@ using AutoMapper;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Customer.Queries;
 
@@ -26,12 +21,8 @@ public class GetCustomerQueryHandler(IMapper mapper, ICustomerRepository custome
     {
         var customer = await _customerRepository.GetAsync(request.Id);
 
-        if (customer is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (customer is null) throw new Exception($"Not found entity with the following id: {request.Id}");
         mapper.Map(request, customer);
         return _mapper.Map<CustomerEntity, CustomerResponse>(customer);
     }
 }
-

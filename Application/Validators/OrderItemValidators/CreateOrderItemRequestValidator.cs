@@ -26,4 +26,3 @@ public class CreateOrderItemRequestValidator : AbstractValidator<CreateOrderItem
             .WithMessage("Book ID is required.");
     }
 }
-

@@ -8,10 +8,10 @@ public class CreatePublisherRequestValidator : AbstractValidator<CreatePublisher
     public CreatePublisherRequestValidator()
     {
         RuleFor(p => p.Name)
-           .NotEmpty()
-           .WithMessage("Name must not be empty.")
-           .MaximumLength(100)
-           .WithMessage("Name cannot exceed 100 characters.");
+            .NotEmpty()
+            .WithMessage("Name must not be empty.")
+            .MaximumLength(100)
+            .WithMessage("Name cannot exceed 100 characters.");
 
         RuleFor(p => p.Address)
             .NotEmpty()
@@ -30,6 +30,5 @@ public class CreatePublisherRequestValidator : AbstractValidator<CreatePublisher
             .WithMessage("Email must not be empty.")
             .EmailAddress()
             .WithMessage("Invalid email format.");
-
     }
 }

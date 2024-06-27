@@ -15,5 +15,3 @@ public class CreateBankAccountRequestValidator : AbstractValidator<CreateBankAcc
             .WithMessage("Category ID is required.");
     }
 }
-
-

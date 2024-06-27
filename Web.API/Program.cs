@@ -1,3 +1,4 @@
+using System.Reflection;
 using Application.Auhtors.Commands;
 using Application.Auhtors.Queries;
 using Application.Authors.Commands;
@@ -9,8 +10,6 @@ using Application.Category.Commands;
 using Application.Category.Queries;
 using Application.Commands.Book;
 using Application.Common.Interfaces.Repositories;
-using Application.Common.Interfaces.Services;
-using Application.Common.Services;
 using Application.Customer.Commands;
 using Application.Customer.Queries;
 using Application.Mappers;
@@ -20,7 +19,6 @@ using Application.OrderItem.Commands;
 using Application.OrderItem.Queries;
 using Application.Publishers.Commands;
 using Application.Publishers.Queries;
-using Contracts.Validators.BookValidators;
 using Domain.Entities;
 using FluentValidation.AspNetCore;
 using Infrastructure.Persistence.DataBases;
@@ -29,15 +27,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 using Web.API.Validators.AuthorValidators;
-using Web.API.Validators.BankAccountValidators;
-using Web.API.Validators.BookValidators;
-using Web.API.Validators.CategorValidators;
-using Web.API.Validators.CustomerValidator;
-using Web.API.Validators.OrderItemValidators;
-using Web.API.Validators.OrderValidators;
-using Web.API.Validators.PublisherValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +43,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
@@ -121,16 +111,6 @@ builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(GetPubl
 
 //Validations
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateAuthorRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateBankAccountRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateBookRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<GetBooksRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateOrderRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateOrderItemRequestValidator>());
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePublisherRequestValidator>());
-
-
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseRepository<BookEntity>), typeof(BaseRepository<BookEntity>));
@@ -142,34 +122,22 @@ builder.Services.AddScoped(typeof(IBaseRepository<OrderEnitity>), typeof(BaseRep
 builder.Services.AddScoped(typeof(IBaseRepository<OrderItemEntity>), typeof(BaseRepository<OrderItemEntity>));
 builder.Services.AddScoped(typeof(IBaseRepository<PublisherEntity>), typeof(BaseRepository<PublisherEntity>));
 
-
-
-builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-builder.Services.AddScoped<IBankAccountService, BankAccountService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
-builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
-builder.Services.AddScoped<IPublisherService, PublisherService>();
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration).Assembly);
-builder.Services.AddDbContext<EFContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddDbContext<EFContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();

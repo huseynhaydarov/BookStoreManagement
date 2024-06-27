@@ -1,10 +1,8 @@
-﻿using Application.Authors.Commands;
-using Application.Books.Commands;
+﻿using Application.Books.Commands;
 using Application.Books.Queries;
 using Application.Commands.Book;
 using AutoMapper;
 using Contracts.Requests.BookRequests;
-using Contracts.Requests.CustomerRequests;
 using Contracts.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +15,11 @@ namespace Web.API.Controllers;
 [Authorize]
 public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Book.Create)]
-    public async Task<ActionResult<BookResponse>> Create([FromBody] CreateBookRequestsModel request, 
+    public async Task<ActionResult<BookResponse>> Create([FromBody] CreateBookRequestsModel request,
         CancellationToken token)
     {
         var response = await _mediator.Send(_mapper.Map<CreateBookRequestsModel, CreateBookCommand>(request), token);
@@ -43,7 +41,8 @@ public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
     //}
 
     [HttpPut(ApiEndpoints.Book.Update)]
-    public async Task<ActionResult<BookResponse>> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request, CancellationToken token)
+    public async Task<ActionResult<BookResponse>> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request,
+        CancellationToken token)
     {
         var command = _mapper.Map<UpdateBookCommand>(request);
         command.Id = id;
@@ -56,15 +55,10 @@ public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteBookCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

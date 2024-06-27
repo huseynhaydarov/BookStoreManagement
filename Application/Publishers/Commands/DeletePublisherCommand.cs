@@ -2,11 +2,6 @@
 using Application.Exceptions;
 using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Publishers.Commands;
 
@@ -14,6 +9,7 @@ public record DeletePublisherCommand : IRequest<bool>
 {
     public int Id { get; set; }
 }
+
 public class DeletePublisherCommandHandler : IRequestHandler<DeletePublisherCommand, bool>
 {
     private readonly IMapper _mapper;
@@ -29,10 +25,7 @@ public class DeletePublisherCommandHandler : IRequestHandler<DeletePublisherComm
     {
         var publisher = await _publisherRepository.GetAsync(request.Id, cancellationToken);
 
-        if (publisher is null)
-        {
-            throw new NotFoundException(nameof(publisher), request.Id);
-        }
+        if (publisher is null) throw new NotFoundException(nameof(publisher), request.Id);
 
         await _publisherRepository.DeleteAsync(publisher, cancellationToken);
         return true;

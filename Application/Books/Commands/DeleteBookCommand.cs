@@ -2,11 +2,6 @@
 using Application.Exceptions;
 using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Books.Commands;
 
@@ -14,10 +9,11 @@ public record DeleteBookCommand : IRequest<bool>
 {
     public int Id { get; set; }
 }
+
 public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, bool>
 {
-    private readonly IMapper _mapper;
     private readonly IBookRepository _bookRepository;
+    private readonly IMapper _mapper;
 
     public DeleteBookCommandHandler(IMapper mapper, IBookRepository bookRepository)
     {
@@ -29,10 +25,7 @@ public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, bool>
     {
         var book = await _bookRepository.GetAsync(request.Id, cancellationToken);
 
-        if (book is null)
-        {
-            throw new NotFoundException(nameof(book), request.Id);
-        }
+        if (book is null) throw new NotFoundException(nameof(book), request.Id);
 
         await _bookRepository.DeleteAsync(book, cancellationToken);
         return true;
