@@ -7,9 +7,8 @@ public class GetBooksRequestValidator : AbstractValidator<GetAllAuthorRequestMod
 {
     public GetBooksRequestValidator()
     {
-        RuleFor(b => b.Items)
-            .NotEmpty()
-            .NotNull();
+        // RuleFor(b => b.Items)
+        //     .NotEmpty()
+        //     .NotNull();
     }
 }
-

@@ -3,11 +3,6 @@ using AutoMapper;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.BankAccounts.Queries;
 
@@ -26,12 +21,9 @@ public class GetBookQueryHandler(IMapper mapper, IBankAccountRepository accountR
     {
         var account = await _accountRepository.GetAsync(request.Id);
 
-        if (account is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (account is null) throw new Exception($"Not found entity with the following id: {request.Id}");
+
         mapper.Map(request, account);
         return _mapper.Map<BankAccountEntity, BankAccountResponse>(account);
     }
 }
-

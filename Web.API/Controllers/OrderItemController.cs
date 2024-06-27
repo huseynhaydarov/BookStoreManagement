@@ -1,11 +1,6 @@
-﻿using Application.Books.Commands;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
-using Application.OrderItem.Commands;
+﻿using Application.OrderItem.Commands;
 using Application.OrderItem.Queries;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderItemRequestsModel;
 using Contracts.Responses;
 using MediatR;
@@ -17,14 +12,15 @@ namespace Web.API.Controllers;
 [Route("[controller]")]
 public class OrderItemController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.OrderItem.Create)]
     public async Task<ActionResult<OrderItemResponse>> Create([FromBody] CreateOrderItemRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreateOrderItemRequestModel, CreateOrderItemCommand>(request), token);
+        var response = await _mediator.Send(_mapper.Map<CreateOrderItemRequestModel, CreateOrderItemCommand>(request),
+            token);
         return Ok(response);
     }
 
@@ -43,7 +39,8 @@ public class OrderItemController(IMediator mediator, IMapper mapper) : Controlle
     //}
 
     [HttpPut(ApiEndpoints.OrderItem.Update)]
-    public async Task<ActionResult<OrderItemResponse>> Update([FromRoute] int id, [FromBody] UpdateOrderItemRequestModel request, CancellationToken token)
+    public async Task<ActionResult<OrderItemResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateOrderItemRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateOrderItemCommand>(request);
         command.Id = id;
@@ -56,15 +53,10 @@ public class OrderItemController(IMediator mediator, IMapper mapper) : Controlle
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteOrderItemCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

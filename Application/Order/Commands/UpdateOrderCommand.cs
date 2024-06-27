@@ -1,15 +1,9 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Order.Commands;
 
@@ -17,6 +11,7 @@ public record UpdateOrderCommand : UpdateOrderRequestModel, IRequest<OrderRespon
 {
     public int Id { get; set; }
 }
+
 public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, OrderResponse>
 {
     private readonly IMapper _mapper;
@@ -32,10 +27,7 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Ord
     {
         var order = await _orderRepository.GetAsync(request.Id, cancellationToken);
 
-        if (order is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (order is null) throw new Exception($"Not found entity with the following id: {request.Id}");
 
         _mapper.Map(request, order);
         order = await _orderRepository.UpdateAsync(order);

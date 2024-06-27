@@ -1,16 +1,9 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using AutoMapper;
-using Contracts.Requests.OrderRequests;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Publishers.Commands;
 
@@ -18,6 +11,7 @@ public record UpdatePublisherCommand : UpdatePublisherRequestModel, IRequest<Pub
 {
     public int Id { get; set; }
 }
+
 public class UpdatePublisherCommandHandler : IRequestHandler<UpdatePublisherCommand, PublisherResponse>
 {
     private readonly IMapper _mapper;
@@ -33,14 +27,10 @@ public class UpdatePublisherCommandHandler : IRequestHandler<UpdatePublisherComm
     {
         var publsiher = await _publisherRepository.GetAsync(request.Id, cancellationToken);
 
-        if (publsiher is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (publsiher is null) throw new Exception($"Not found entity with the following id: {request.Id}");
 
         _mapper.Map(request, publsiher);
         publsiher = await _publisherRepository.UpdateAsync(publsiher);
         return _mapper.Map<PublisherEntity, PublisherResponse>(publsiher);
     }
 }
-

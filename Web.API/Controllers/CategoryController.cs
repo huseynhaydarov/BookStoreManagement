@@ -1,14 +1,8 @@
-﻿using Application.Authors.Commands;
-using Application.Books.Commands;
-using Application.Books.Queries;
+﻿using Application.Books.Commands;
 using Application.Category.Commands;
 using Application.Category.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.CategoryRequests;
-using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +11,17 @@ namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-
 public class CategoryController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Category.Create)]
     public async Task<ActionResult<CategoryResponse>> Create([FromBody] CreateCategoryRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreateCategoryRequestModel, CreateCategoryCommand>(request), token);
+        var response = await _mediator.Send(_mapper.Map<CreateCategoryRequestModel, CreateCategoryCommand>(request),
+            token);
         return Ok(response);
     }
 
@@ -46,7 +40,8 @@ public class CategoryController(IMediator mediator, IMapper mapper) : Controller
     //}
 
     [HttpPut(ApiEndpoints.Category.Update)]
-    public async Task<ActionResult<CategoryResponse>> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestModel request, CancellationToken token)
+    public async Task<ActionResult<CategoryResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateCategoryRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateCategoryCommand>(request);
         command.Id = id;
@@ -59,15 +54,10 @@ public class CategoryController(IMediator mediator, IMapper mapper) : Controller
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteBookCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

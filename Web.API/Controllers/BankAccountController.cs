@@ -1,15 +1,8 @@
-﻿using Application.Authors.Commands;
-using Application.BankAccounts.Commands;
+﻿using Application.BankAccounts.Commands;
 using Application.BankAccounts.Queries;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
-using Application.Common.Services;
 using AutoMapper;
 using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
-using Contracts.Requests.BookRequests;
-using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,17 +11,17 @@ namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-
 public class BankAccountController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.BankAccount.Create)]
     public async Task<ActionResult<BankAccountResponse>> Create([FromBody] CreateBankAccountRequestModel request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(_mapper.Map<CreateBankAccountRequestModel, CreateBankAccountCommand>(request), token);
+        var response =
+            await _mediator.Send(_mapper.Map<CreateBankAccountRequestModel, CreateBankAccountCommand>(request), token);
         return Ok(response);
     }
 
@@ -40,7 +33,8 @@ public class BankAccountController(IMediator mediator, IMapper mapper) : Control
     }
 
     [HttpPut(ApiEndpoints.BankAccount.Update)]
-    public async Task<ActionResult<BankAccountResponse>> Update([FromRoute] int id, [FromBody] UpdateBankAccountRequestModel request, CancellationToken token)
+    public async Task<ActionResult<BankAccountResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateBankAccountRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateBankAccountCommand>(request);
         command.Id = id;
@@ -53,15 +47,10 @@ public class BankAccountController(IMediator mediator, IMapper mapper) : Control
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteBankAccountCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

@@ -1,13 +1,7 @@
-﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Contracts.Pagination;
 
 namespace Contracts.Requests.AuthorRequests;
 
-public record GetAllAuthorRequestModel
+public record GetAllAuthorRequestModel : PagingParameters
 {
-    public IEnumerable<AuthorEntity> Items { get; init; } = Enumerable.Empty<AuthorEntity>();
 }

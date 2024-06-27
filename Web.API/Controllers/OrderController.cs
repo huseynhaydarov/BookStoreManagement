@@ -1,12 +1,6 @@
-﻿using Application.Books.Commands;
-using Application.Books.Queries;
-using Application.Commands.Book;
-using Application.Common.Interfaces.Services;
-using Application.Order.Commands;
+﻿using Application.Order.Commands;
 using Application.Order.Queries;
-using Application.Publishers.Commands;
 using AutoMapper;
-using Contracts.Requests.BookRequests;
 using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
@@ -16,8 +10,8 @@ namespace Web.API.Controllers;
 
 public class OrderController(IMediator mediator, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator = mediator;
     private readonly IMapper _mapper = mapper;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost(ApiEndpoints.Order.Create)]
     public async Task<ActionResult<OrderResponse>> Create([FromBody] CreateOrderRequestModel request,
@@ -42,7 +36,8 @@ public class OrderController(IMediator mediator, IMapper mapper) : ControllerBas
     //}
 
     [HttpPut(ApiEndpoints.Order.Update)]
-    public async Task<ActionResult<OrderResponse>> Update([FromRoute] int id, [FromBody] UpdateOrderRequestModel request, CancellationToken token)
+    public async Task<ActionResult<OrderResponse>> Update([FromRoute] int id,
+        [FromBody] UpdateOrderRequestModel request, CancellationToken token)
     {
         var command = _mapper.Map<UpdateOrderCommand>(request);
         command.Id = id;
@@ -55,15 +50,10 @@ public class OrderController(IMediator mediator, IMapper mapper) : ControllerBas
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken token)
     {
         var command = new DeleteOrderCommand { Id = id };
-        bool result = await _mediator.Send(command, token);
+        var result = await _mediator.Send(command, token);
 
         if (result)
-        {
             return NoContent();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return NotFound();
     }
 }

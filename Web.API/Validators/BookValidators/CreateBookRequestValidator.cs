@@ -1,10 +1,5 @@
 ﻿using Contracts.Requests.BookRequests;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Contracts.Validators.BookValidators;
 
@@ -24,10 +19,10 @@ public class CreateBookRequestValidator : AbstractValidator<CreateBookRequestsMo
             .NotNull();
 
         RuleFor(b => b.Price)
-             .GreaterThan(0)
-             .WithMessage("Price must be greater than 0.")
-             .ScalePrecision(2, 18)
-             .WithMessage("Price must not have more than 2 decimal places");
+            .GreaterThan(0)
+            .WithMessage("Price must be greater than 0.")
+            .ScalePrecision(2, 18)
+            .WithMessage("Price must not have more than 2 decimal places");
 
         RuleFor(b => b.PageSize)
             .GreaterThan(0).WithMessage("Page size must be greater than 0");

@@ -29,7 +29,6 @@ using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using Domain.Entities;
 
-
 namespace Application.Mappers;
 
 public class AutoMapperConfiguration : Profile
@@ -144,8 +143,5 @@ public class AutoMapperConfiguration : Profile
         CreateMap<DeletePublisherCommand, PublisherEntity>();
         //CreateMap<GetPublishersRequest, GetPublishersQuery>();
         CreateMap<PublisherResponse, GetAllPublisherRequestModel>();
-
-
-
     }
 }

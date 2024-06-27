@@ -3,11 +3,6 @@ using AutoMapper;
 using Contracts.Responses;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Category.Queries;
 
@@ -26,12 +21,9 @@ public class GetCategoryQueryHandler(IMapper mapper, ICategoryRepository categor
     {
         var category = await _categoryRepository.GetAsync(request.Id);
 
-        if (category is null)
-        {
-            throw new Exception($"Not found entity with the following id: {request.Id}");
-        }
+        if (category is null) throw new Exception($"Not found entity with the following id: {request.Id}");
+
         mapper.Map(request, category);
         return _mapper.Map<CategoryEntity, CategoryResponse>(category);
     }
 }
-

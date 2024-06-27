@@ -25,4 +25,3 @@ public class CreateOrderRequestValidator : AbstractValidator<CreateOrderRequestM
             .WithMessage("Customer id is required.");
     }
 }
-
