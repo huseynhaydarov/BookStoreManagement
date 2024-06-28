@@ -7,7 +7,7 @@ public record PagingParameters
 
     public bool OrderByDescending { get; set; }
 
-    public int Page
+    public int PageNumber
     {
         get => _page;
         set => _page = Math.Clamp(value, 1, int.MaxValue);

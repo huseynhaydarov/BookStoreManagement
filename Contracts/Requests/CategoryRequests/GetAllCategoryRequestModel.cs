@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Contracts.Pagination;
+using Domain.Entities;
 
 namespace Contracts.Requests.CategoryRequests;
 
-public record GetAllCategoryRequestModel
+public record GetAllCategoryRequestModel : PagingParameters
 {
-    public IEnumerable<CategoryEntity> Items { get; init; } = Enumerable.Empty<CategoryEntity>();
 }

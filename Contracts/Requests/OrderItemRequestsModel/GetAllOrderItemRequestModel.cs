@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Contracts.Pagination;
+using Domain.Entities;
 
 namespace Contracts.Requests.OrderItemRequestsModel;
 
-public record GetAllOrderItemRequestModel
+public record GetAllOrderItemRequestModel : PagingParameters
 {
-    public IEnumerable<OrderItemEntity> Items { get; init; } = Enumerable.Empty<OrderItemEntity>();
 }

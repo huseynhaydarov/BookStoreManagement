@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Contracts.Pagination;
+using Domain.Entities;
 
 namespace Contracts.Requests.CustomerRequests;
 
-public record GetAllCustomerRequestModel
+public record GetAllCustomerRequestModel : PagingParameters
 {
-    public IEnumerable<CustomerEntity> Items { get; init; } = Enumerable.Empty<CustomerEntity>();
 }

@@ -1,6 +1,8 @@
-﻿using Application.BankAccounts.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.BankAccounts.Commands;
 using Application.BankAccounts.Queries;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
 using Contracts.Responses;
@@ -29,6 +31,16 @@ public class BankAccountController(IMediator mediator, IMapper mapper) : Control
     public async Task<ActionResult<BankAccountResponse>> Get([FromRoute] int id, CancellationToken token)
     {
         var response = await _mediator.Send(new GetBankAccountQuery(id));
+        return Ok(response);
+    }
+
+    [HttpGet(ApiEndpoints.BankAccount.GetAll)]
+    public async Task<ActionResult<List<BankAccountResponse>>> GetAll([FromQuery] GetAllBankAccountRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetBankAccountsQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
         return Ok(response);
     }
 

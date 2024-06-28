@@ -1,6 +1,8 @@
-﻿using Application.Customer.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.Customer.Commands;
 using Application.Customer.Queries;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.CustomerRequests;
 using Contracts.Responses;
 using MediatR;
@@ -31,12 +33,15 @@ public class CustomerController(IMediator mediator, IMapper mapper) : Controller
         return Ok(response);
     }
 
-    //[HttpGet(ApiEndpoints.Customer.GetAll)]
-    //public async Task<IActionResult> GetAll(CancellationToken token)
-    //{
-    //    var response = await customerService.GetAllAsync(token);
-    //    return Ok(response);
-    //}
+    [HttpGet(ApiEndpoints.Customer.GetAll)]
+    public async Task<ActionResult<List<CustomerResponse>>> GetAll([FromQuery] GetAllCustomerRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetCustomersQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
+        return Ok(response);
+    }
 
     [HttpPut(ApiEndpoints.Customer.Update)]
     public async Task<ActionResult<CustomerResponse>> Update([FromRoute] int id,
