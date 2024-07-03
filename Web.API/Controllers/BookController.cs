@@ -1,7 +1,9 @@
-﻿using Application.Books.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.Books.Commands;
 using Application.Books.Queries;
 using Application.Commands.Book;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BookRequests;
 using Contracts.Responses;
 using MediatR;
@@ -12,7 +14,7 @@ namespace Web.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+//[Authorize]
 public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
 {
     private readonly IMapper _mapper = mapper;
@@ -33,12 +35,15 @@ public class BookController(IMediator mediator, IMapper mapper) : ControllerBase
         return Ok(response);
     }
 
-    //[HttpGet(ApiEndpoints.Book.GetAll)]
-    //public async Task<IActionResult> GetAll(CancellationToken token)
-    //{
-    //    var response = await bookService.GetAllAsync(token);
-    //    return Ok(response);
-    //}
+    [HttpGet(ApiEndpoints.Book.GetAll)]
+    public async Task<ActionResult<List<BookResponse>>> GetAll([FromQuery] GetAllBookRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetBooksQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
+        return Ok(response);
+    }
 
     [HttpPut(ApiEndpoints.Book.Update)]
     public async Task<ActionResult<BookResponse>> Update([FromRoute] int id, [FromBody] UpdateBookRequestModel request,

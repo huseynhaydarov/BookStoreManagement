@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Contracts.Pagination;
+using Domain.Entities;
 
 namespace Contracts.Requests.BankAccountRequests;
 
-public record GetAllBankAccountRequestModel
+public record GetAllBankAccountRequestModel : PagingParameters
 {
-    public IEnumerable<BankAccountEntity> Items { get; init; } = Enumerable.Empty<BankAccountEntity>();
 }

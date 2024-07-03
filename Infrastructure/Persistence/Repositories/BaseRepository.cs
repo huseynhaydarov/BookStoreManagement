@@ -39,7 +39,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
             entities = entities.OrderByDescending(e => e.Id);
         }
 
-        entities = entities.Skip((request.Page - 1) * request.PageSize).Take(request.PageSize);
+        entities = entities.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize);
 
         return await entities.ToListAsync(token);
     }

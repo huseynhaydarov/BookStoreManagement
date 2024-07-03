@@ -1,6 +1,8 @@
-﻿using Application.Publishers.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.Publishers.Commands;
 using Application.Publishers.Queries;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using MediatR;
@@ -31,12 +33,15 @@ public class PublisherController(IMediator mediator, IMapper mapper) : Controlle
         return Ok(response);
     }
 
-    //[HttpGet(ApiEndpoints.Book.GetAll)]
-    //public async Task<IActionResult> GetAll(CancellationToken token)
-    //{
-    //    var response = await bookService.GetAllAsync(token);
-    //    return Ok(response);
-    //}
+    [HttpGet(ApiEndpoints.Book.GetAll)]
+    public async Task<ActionResult<List<PublisherResponse>>> GetAll([FromQuery] GetAllPublisherRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetPublishersQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
+        return Ok(response);
+    }
 
     [HttpPut(ApiEndpoints.Publisher.Update)]
     public async Task<ActionResult<PublisherResponse>> Update([FromRoute] int id,

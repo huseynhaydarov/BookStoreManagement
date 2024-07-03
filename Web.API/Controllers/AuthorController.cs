@@ -34,7 +34,7 @@ public class AuthorController(IMediator mediator, IMapper mapper) : ControllerBa
     }
 
     [HttpGet(ApiEndpoints.Author.GetAll)]
-    public async Task<ActionResult<List<AuthorResponse>>> GetAll([FromQuery] GetAuthorsRequest request, CancellationToken token)
+    public async Task<ActionResult<List<AuthorResponse>>> GetAll([FromQuery] GetAllAuthorRequestModel request, CancellationToken token)
     {
         var command = mapper.Map<GetAuthorsQuery>(request);
 

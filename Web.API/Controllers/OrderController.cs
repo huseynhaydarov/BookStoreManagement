@@ -1,6 +1,8 @@
-﻿using Application.Order.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.Order.Commands;
 using Application.Order.Queries;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;
@@ -28,12 +30,15 @@ public class OrderController(IMediator mediator, IMapper mapper) : ControllerBas
         return Ok(response);
     }
 
-    //[HttpGet(ApiEndpoints.Order.GetAll)]
-    //public async Task<IActionResult> GetAll(CancellationToken token)
-    //{
-    //    var response = await orderService.GetAllAsync(token);
-    //    return Ok(response);
-    //}
+    [HttpGet(ApiEndpoints.Order.GetAll)]
+    public async Task<ActionResult<List<OrderResponse>>> GetAll([FromQuery] GetAllOrderRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetOrdersQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
+        return Ok(response);
+    }
 
     [HttpPut(ApiEndpoints.Order.Update)]
     public async Task<ActionResult<OrderResponse>> Update([FromRoute] int id,

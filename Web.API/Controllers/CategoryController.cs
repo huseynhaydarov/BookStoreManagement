@@ -1,7 +1,9 @@
-﻿using Application.Books.Commands;
+﻿using Application.Auhtors.Queries;
+using Application.Books.Commands;
 using Application.Category.Commands;
 using Application.Category.Queries;
 using AutoMapper;
+using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.CategoryRequests;
 using Contracts.Responses;
 using MediatR;
@@ -32,12 +34,15 @@ public class CategoryController(IMediator mediator, IMapper mapper) : Controller
         return Ok(response);
     }
 
-    //[HttpGet(ApiEndpoints.Category.GetAll)]
-    //public async Task<IActionResult> GetAll(CancellationToken token)
-    //{
-    //    var response = await categoryService.GetAllAsync(token);
-    //    return Ok(response);
-    //}
+    [HttpGet(ApiEndpoints.Category.GetAll)]
+    public async Task<ActionResult<List<CategoryResponse>>> GetAll([FromQuery] GetAllCategoryRequestModel request, CancellationToken token)
+    {
+        var command = mapper.Map<GetCategoriesQuery>(request);
+
+        var response = await mediator.Send(command, token);
+
+        return Ok(response);
+    }
 
     [HttpPut(ApiEndpoints.Category.Update)]
     public async Task<ActionResult<CategoryResponse>> Update([FromRoute] int id,

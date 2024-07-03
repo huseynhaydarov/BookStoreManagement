@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Contracts.Pagination;
+using Domain.Entities;
 
 namespace Contracts.Requests.PublisherRequests;
 
-public record GetAllPublisherRequestModel
+public record GetAllPublisherRequestModel : PagingParameters
 {
-    public IEnumerable<PublisherEntity> Items { get; init; } = Enumerable.Empty<PublisherEntity>();
 }
