@@ -1,7 +1,3 @@
-using Domain.Entities;
-using System;
-using Xunit;
-
 namespace UnitTests.AuthorTests
 {
     public class AuthorTests
