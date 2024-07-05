@@ -31,6 +31,11 @@ using Web.API.Validators.AuthorValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<BookRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.Decorate<IBookRepository, CachedBookRepository>();
+
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<EFContext>()
     .AddApiEndpoints();
@@ -38,6 +43,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddAuthentication()
     .AddBearerToken(IdentityConstants.BearerScheme);
 
+builder.Services.AddMemoryCache();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -122,7 +128,7 @@ builder.Services.AddScoped(typeof(IBaseRepository<OrderEnitity>), typeof(BaseRep
 builder.Services.AddScoped(typeof(IBaseRepository<OrderItemEntity>), typeof(BaseRepository<OrderItemEntity>));
 builder.Services.AddScoped(typeof(IBaseRepository<PublisherEntity>), typeof(BaseRepository<PublisherEntity>));
 
-builder.Services.AddScoped<IBookRepository, BookRepository>();
+//builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

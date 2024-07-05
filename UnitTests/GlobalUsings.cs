@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// third parties
+global using FluentAssertions;
 
-namespace UnitTests
-{
-    internal class GlobalUsings
-    {
-    }
-}
+// solutions
+global using Domain.Entities;
