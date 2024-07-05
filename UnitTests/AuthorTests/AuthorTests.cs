@@ -21,6 +21,20 @@ namespace UnitTests.AuthorTests
             Assert.NotNull(actual.Books);
             Assert.Empty(actual.Books);
         }
+        [Theory]
+        [InlineData("", "dateOfBirth", "biography")]
+        [InlineData("fullName", "", "biography")]
+        [InlineData("fullName", "biography", "")]
+        public void Create_GivenSomeIncorrectParameters_ThrowArgumentException(string fullName, DateTime dateOfBirth, string biography)
+        {
+            // Arrange
+            // Act
+            Action actual = () => AuthorEntity.Create(fullName, dateOfBirth, biography);
+
+            // Assert
+            actual.Should().Throw<ArgumentException>("parameters are incorrect but did not throw Exception");
+        }
+
 
         private class AuthorTestDto
         {

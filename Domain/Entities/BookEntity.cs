@@ -23,4 +23,20 @@ public class BookEntity : BaseEntity
     public int CategoryId { get; set; }
 
     public virtual ICollection<OrderItemEntity> Items { get; set; }
+
+    public static BookEntity Create(string title, string description, decimal price, int pageSize, int publicationYear, int stockQuantity, string isbn, string imagePath, BookType bookType)
+    {
+        return new BookEntity
+        {
+            Title = title,
+            Description = description,
+            Price = price,
+            PageSize = pageSize,
+            PublicationYear = publicationYear,
+            StockQuantity = stockQuantity,
+            ISBN = isbn,
+            ImagePath = imagePath,
+            Type = bookType
+        };
+    }
 }
