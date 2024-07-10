@@ -10,7 +10,7 @@ namespace UnitTests.AuthorTests
             var dateOfBirth = new DateTime(1930, 06, 28);
             var biography = "William Shakespeare was a renowned English poet, playwright, and actor born in 1564. Read about his life and works.";
 
-            // Act 
+            // Act fact
             var actual = AuthorEntity.Create(fullName, dateOfBirth, biography);
 
             // Assert
