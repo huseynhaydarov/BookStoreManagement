@@ -1,4 +1,3 @@
-using System.Reflection;
 using Application.Auhtors.Commands;
 using Application.Auhtors.Queries;
 using Application.Authors.Commands;
@@ -27,6 +26,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 using Web.API.Validators.AuthorValidators;
 
 var builder = WebApplication.CreateBuilder(args);

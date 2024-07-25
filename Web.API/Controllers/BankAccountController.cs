@@ -1,8 +1,6 @@
-﻿using Application.Auhtors.Queries;
-using Application.BankAccounts.Commands;
+﻿using Application.BankAccounts.Commands;
 using Application.BankAccounts.Queries;
 using AutoMapper;
-using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BankAccount;
 using Contracts.Requests.BankAccountRequests;
 using Contracts.Responses;

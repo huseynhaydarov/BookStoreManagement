@@ -1,9 +1,7 @@
-﻿using Application.Auhtors.Queries;
-using Application.Books.Commands;
+﻿using Application.Books.Commands;
 using Application.Category.Commands;
 using Application.Category.Queries;
 using AutoMapper;
-using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.CategoryRequests;
 using Contracts.Responses;
 using MediatR;

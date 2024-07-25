@@ -1,5 +1,4 @@
 ﻿using Application.Auhtors.Commands;
-using Application.Authors.Commands;
 using AutoMapper;
 using Contracts.Requests.AuthorRequests;
 using Contracts.Responses;
@@ -7,10 +6,6 @@ using Domain.Entities;
 using Infrastructure.Persistence.Repositories;
 using IntegrationTests.Fixtures;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace IntegrationTests.Authors
 {
@@ -37,7 +32,7 @@ namespace IntegrationTests.Authors
         {
             // Arrange
             var dbContext = _fixture.BuildDbContext(new Random().Next().ToString());
-            await dbContext.Database.EnsureCreatedAsync(); 
+            await dbContext.Database.EnsureCreatedAsync();
 
             var authorRepository = new AuthorRepository(dbContext);
             var handler = new CreateAuthorCommandHandler(_mapper, authorRepository);

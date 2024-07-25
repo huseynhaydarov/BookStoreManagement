@@ -1,13 +1,10 @@
-﻿using Application.Auhtors.Queries;
-using Application.Books.Commands;
+﻿using Application.Books.Commands;
 using Application.Books.Queries;
 using Application.Commands.Book;
 using AutoMapper;
-using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.BookRequests;
 using Contracts.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers;

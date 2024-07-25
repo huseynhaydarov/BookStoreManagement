@@ -1,8 +1,6 @@
-﻿using Application.Auhtors.Queries;
-using Application.Order.Commands;
+﻿using Application.Order.Commands;
 using Application.Order.Queries;
 using AutoMapper;
-using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.OrderRequests;
 using Contracts.Responses;
 using MediatR;

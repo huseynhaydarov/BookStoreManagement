@@ -1,8 +1,6 @@
-﻿using Application.Auhtors.Queries;
-using Application.Publishers.Commands;
+﻿using Application.Publishers.Commands;
 using Application.Publishers.Queries;
 using AutoMapper;
-using Contracts.Requests.AuthorRequests;
 using Contracts.Requests.PublisherRequests;
 using Contracts.Responses;
 using MediatR;
