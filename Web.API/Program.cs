@@ -20,6 +20,7 @@ using Application.Publishers.Commands;
 using Application.Publishers.Queries;
 using Domain.Entities;
 using FluentValidation.AspNetCore;
+using Infrastructure.Middleware;
 using Infrastructure.Persistence.DataBases;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +36,22 @@ builder.Services.AddScoped<BookRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.Decorate<IBookRepository, CachedBookRepository>();
 
+builder.Services.AddScoped<AuthorRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.Decorate<IAuthorRepository, CachedAuthorRepository>();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // Add this line
+
+builder.Services.AddProblemDetails();  // Add this line
+
+// Adding of login 
+builder.Services.AddLogging();  //  Add this line
+builder.Services.AddStackExchangeRedisCache(redisOptions =>
+{
+    string connection = builder.Configuration
+    .GetConnectionString("Redis");
+    redisOptions.Configuration = connection;
+});
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<EFContext>()
@@ -128,8 +145,6 @@ builder.Services.AddScoped(typeof(IBaseRepository<OrderEnitity>), typeof(BaseRep
 builder.Services.AddScoped(typeof(IBaseRepository<OrderItemEntity>), typeof(BaseRepository<OrderItemEntity>));
 builder.Services.AddScoped(typeof(IBaseRepository<PublisherEntity>), typeof(BaseRepository<PublisherEntity>));
 
-//builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
